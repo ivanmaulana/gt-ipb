@@ -1,0 +1,103 @@
+<ion-navbar *navbar class="hide-border">
+  <ion-title>Home</ion-title>
+  <button menuToggle end (click)="tutorial()" showWhen="ios">
+    <ion-icon name="bulb" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="tutorial()" hideWhen="ios">
+    <ion-icon name="bulb" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="ios">
+    <ion-icon name="log-in" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" hideWhen="ios">
+    <ion-icon name="log-in" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="logout()" *ngIf="status" hideWhen="ios">
+    <ion-icon name="log-out" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="ios">
+    <ion-icon name="log-out" primary></ion-icon>
+  </button>
+</ion-navbar>
+
+<ion-content class="schedule">
+  <ion-refresher (refresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <br>
+  <div padding *ngIf="!status">
+    <div text-center>
+      <p danger>
+        Silahkan login dengan Akun IPB kamu untuk melihat QR Code & data kamu.
+      </p>
+      <button (click)="login()">Login</button>
+    </div>
+  </div>
+
+  <div *ngIf="status">
+    <div class="row" align="center">
+      <button primary (click)="change()">Code Kamu</button>
+    </div>
+    <div class="row">
+      <div align="center" *ngIf="code">
+        <img width="60%" src="data:image/png;base64,{{qrcode}}">
+      </div>
+      <div align="center" *ngIf="!code">
+        <br /><img width="60%" src="data:image/png;base64,{{barcode}}">
+      </div>
+    </div>
+
+    <ion-card>
+    <ion-item>
+      <!-- <h2>{{post.mahasiswaNim}}</h2> -->
+      <h2>{{nim}}</h2>
+      <!-- <p>{{post.mahasiswaNama}}</p> -->
+      <p>{{nama}}</p>
+      <button item-right danger>Denda = Rp. {{denda}}</button>
+    </ion-item>
+    <ion-row align="center">
+      <ion-col width-100>
+        <ion-icon primary *ngIf="mahasiswastatus === '0'" name="md-checkmark-circle" style="font-size:42px"></ion-icon>
+        <ion-icon danger *ngIf="mahasiswastatus === '1'" name="close-circle" style="font-size:42px"></ion-icon>
+        <br>
+        <p *ngIf="mahasiswastatus === '1'">Sedang Pinjam</p>
+        <p *ngIf="mahasiswastatus === '0'">Tidak Sedang Pinjam</p>
+      </ion-col>
+    </ion-row>
+    </ion-card>
+  </div>
+
+  <hr />
+  <div text-center>
+    <ion-card>
+    <h2 primary>Jumlah sepeda di shelter saat ini</h2>
+    <!-- <p grey>Yuk, naik sepeda.</p> -->
+    <div *ngFor="#post of posts">
+      <ion-grid>
+        <ion-row>
+          <ion-col width-20><h2 primary>{{post.shelter1}}</h2><br />GWW</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter2}}</h2><br />GWW-2</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter3}}</h2><br />ASTRI</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter4}}</h2><br />ASTRA</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter5}}</h2><br />MENWA</ion-col>
+        </ion-row>
+        <hr />
+        <ion-row>
+          <ion-col width-20><h2 primary>{{post.shelter6}}</h2><br />FATETA</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter7}}</h2><br />ALHUR</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter8}}</h2><br />SYLVA</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter9}}</h2><br />FAPET</ion-col>
+          <ion-col width-20><h2 primary>{{post.shelter10}}</h2><br />REKTORAT</ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    </ion-card>
+
+    <ion-card><br />
+    <h2 primary>Lokasi Shelter Sepeda</h2>
+    <img src="img/rute/shelter.png"/>
+    </ion-card>
+  </div>
+  <br /><br />
+
+</ion-content>

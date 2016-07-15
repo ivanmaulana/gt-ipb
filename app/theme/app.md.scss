@@ -1,0 +1,16 @@
+@import 'app.variables';
+
+$toolbar-md-background:                   color($colors, primary);
+
+$tabbar-md-background:                    #16a085;
+
+$tab-button-md-active-color:              #fff;
+$tab-button-md-inactive-color:            color($colors, light);
+
+$toolbar-md-active-color:                 #fff;
+$toolbar-md-inactive-color:               #fff;
+$segment-button-md-text-color-activated:  #fff;
+
+@import "ionic.md";
+
+@import 'app.core';

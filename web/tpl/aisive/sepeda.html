@@ -1,0 +1,94 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Sepeda</h1>
+</div>
+<div class="wrapper-md" ng-controller="SepedaCtrl">	
+  <!-- toaster directive -->
+  <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+  <!-- / toaster directive -->
+	<div class="panel panel-default">
+		<div class="panel-heading font-bold">Tambahkan Sepeda Baru</div>
+		<div class="panel-body">
+		  <form class="bs-example form-horizontal ng-pristine ng-valid" ng-submit="tambahSepeda()">
+			<div class="form-group">
+			  <label class="col-md-2 control-label">Id Sepeda</label>
+			  <div class="col-md-2">
+				<input ng-model="sepedaBaru.sepedaId" ui-jq="TouchSpin" class="form-control" data-min="1" data-max="999999999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" type="text">
+			  </div>
+			  
+			  <label class="col-md-2 control-label">Jenis Sepeda</label>
+			  <div class="col-md-2">
+				<select ng-model="sepedaBaru.jenisSepedaId" class="form-control">
+				  <option ng-repeat="jenisSepeda in JenisSepedaService.data" value="{{ jenisSepeda.jenisSepedaId }}" ng-selected="jenisSepeda.jenisSepedaId == 1">{{ jenisSepeda.jenisSepedaNama }}</option>
+				</select>
+			  </div>
+			  
+			  <label class="col-md-2 control-label">Lokasi Sepeda</label>
+			  <div class="col-md-2">
+				<select ng-model="sepedaBaru.sepedaLokasi" class="form-control">
+				  <option ng-repeat="LokasiSepeda in LokasiSepedaService.data" ng-if="LokasiSepeda.shelterId > 0" value="{{ LokasiSepeda.shelterId }}" ng-selected="LokasiSepeda.shelterId == 1">{{ LokasiSepeda.shelterLokasi }}</option>
+				</select>
+			  </div>
+			</div>
+			<div class="form-group">
+			  <div class="col-md-offset-2 col-md-10">
+				<button type="submit" class="btn btn-sm btn-primary">Tambahkan</button>
+			  </div>
+			</div>
+		  </form>
+		</div>
+	  </div>
+	
+	<div class="panel panel-default">
+		<div class="panel-heading font-bold">Cari Sepeda</div>
+		<div class="panel-body">
+		  <form class="bs-example form-horizontal ng-pristine ng-valid" ng-submit="cariSepeda()">
+			<div class="form-group">
+			  <label class="col-md-2 control-label">Id Sepeda</label>
+			  <div class="col-md-2">
+				<input ng-model="sepedaCari.sepedaId" ui-jq="TouchSpin" class="form-control" data-min="1" data-max="999999999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" type="text">
+			  </div>
+			</div>
+			<div class="form-group">
+			  <div class="col-md-offset-2 col-md-10">
+				<button type="submit" class="btn btn-sm btn-info">Cari</button>
+			  </div>
+			</div>
+		  </form>
+		</div>
+	  </div>  
+  
+  
+  
+	<div id="formEdit" class="panel panel-default" ng-show="sepedaEdit">
+        <div class="panel-heading font-bold">Informasi Sepeda</div>
+        <div class="panel-body">
+          <form class="bs-example form-horizontal ng-pristine ng-valid" ng-submit="doEdit()">
+            <div class="form-group">
+              <label class="col-md-2 control-label">Id Sepeda</label>
+              <div class="col-md-2">
+                <input disabled="" ng-model="sepedaEdit.sepedaId" ui-jq="TouchSpin" class="form-control" data-min="0" data-max="999999999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" type="text">
+              </div>
+			  
+              <label class="col-md-2 control-label">Jenis Sepeda</label>
+              <div class="col-md-2">
+                <select disabled="" ng-model="sepedaEdit.jenisSepedaId" class="form-control">
+				  <option ng-repeat="jenisSepeda in JenisSepedaService.data" value="{{ jenisSepeda.jenisSepedaId }}">{{ jenisSepeda.jenisSepedaNama }}</option>
+				</select>
+              </div>
+			  
+              <label class="col-md-2 control-label">Lokasi Sepeda</label>
+              <div class="col-md-2">
+                <select ng-disabled="sepedaEdit.sepedaId==0" ng-model="sepedaEdit.sepedaLokasi" class="form-control">
+				  <option ng-repeat="LokasiSepeda in LokasiSepedaService.data" value="{{ LokasiSepeda.shelterId }}">{{ LokasiSepeda.shelterLokasi }}</option>
+				</select>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-sm btn-success" ng-disabled="sepedaEdit.sepedaId==0" >Edit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+</div>

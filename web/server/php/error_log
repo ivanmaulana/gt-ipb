@@ -1,0 +1,17 @@
+[21-Apr-2016 03:21:50 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 7
+[15-May-2016 09:31:24 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 7
+[15-May-2016 09:31:24 UTC] PHP Warning:  mysql_connect(): Unknown MySQL server host 'http' (-2) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 7
+[15-May-2016 09:33:42 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 8
+[15-May-2016 09:33:42 UTC] PHP Warning:  mysql_connect(): Unknown MySQL server host 'http' (-2) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 8
+[15-May-2016 09:34:22 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:25 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:25 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:26 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:27 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:27 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:27 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:34:33 UTC] PHP Parse error:  syntax error, unexpected '$host' (T_VARIABLE) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 3
+[15-May-2016 09:35:12 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 8
+[15-May-2016 09:35:12 UTC] PHP Warning:  mysql_connect(): Unknown MySQL server host 'http' (-2) in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 8
+[15-May-2016 09:36:15 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 7
+[15-May-2016 09:36:46 UTC] PHP Deprecated:  mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead in /home/aisiveco/public_html/subdomain_sepeda/server/php/conn.php on line 7

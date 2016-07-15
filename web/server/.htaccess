@@ -1,0 +1,28 @@
+# ========================================================================
+# Fakhri Izzudin
+# fakhri@ipb.ac.id
+# ========================================================================
+# Copyright 2016 Fakhri Izzudin.
+# ========================================================================
+
+
+<IfModule mod_rewrite.c>
+# if a directory or a file exists, use it directly
+Options +FollowSymLinks
+Options -Indexes
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+
+
+# Config Server JS
+ RewriteRule ^config.server.js$	config.server.js.php	[L]
+</IfModule>
+
+
+
+# JS NO CACHE
+<FilesMatch "\.(js)$">
+Header set Cache-Control "max-age=0"
+</FilesMatch>

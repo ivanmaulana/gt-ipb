@@ -1,0 +1,194 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm" ng-init="
+    app.settings.asideFolded = false; 
+    app.settings.asideDock = false;
+  ">
+  <!-- main -->
+  <div class="col" ng-controller="DashboardCtrl">
+    <!-- main header -->
+    <div class="bg-light lter b-b wrapper-md">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12">
+          <h1 class="m-n font-thin h3 text-black">Dashboard</h1>
+          <small class="text-muted">Selamat datang di Sistem Peminjaman Sepeda IPB</small>
+        </div>
+      </div>
+    </div>
+    <!-- / main header -->
+    <div class="wrapper-md" ng-controller="FlotChartDemoCtrl">
+	
+	
+	    
+      <!-- statistik hari ini -->
+        <div class="row">
+          <div class="col-md-10">
+			<div class="">
+			  <!-- streamline -->
+			  <div class="panel panel-default">
+				<div class="panel-heading">
+				  Statistik shelter hari ini
+				</div>
+				<div>
+				  <table class="table m-b-none" ui-jq="footable" data-filter="#filter">
+					<thead>
+					  <tr>
+						  <th data-toggle="true">
+							  Nama Shelter
+						  </th>
+						  <th data-hide="phone">
+							  Sepeda dipinjam
+						  </th>
+						  <th data-hide="phone">
+							  Sepeda dikembalikan
+						  </th>
+						  <th data-hide="phone">
+							  Sepeda tersisa
+						  </th>
+						  <th>
+							  Status
+						  </th>
+						  <th data-hide="phone,tablet">
+							  Penjaga
+						  </th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr ng-repeat="shelter in ShelterService.data">
+						  <td>{{ shelter.shelterLokasi }}</td>
+						  <td><a href>{{ shelter.sepedaDipinjam }}</a></td>
+						  <td>{{ shelter.sepedaKembali }}</td>
+						  <td>{{ shelter.sepedaSisa }}</td>
+						  <td><span class="text-{{ (shelter.penjagaNama) ? 'success' : 'danger' }}">{{ (shelter.penjagaNama) ? 'Buka' : 'Tutup' }}</span></td>
+						  <td>{{ shelter.penjagaNama || '-'}}</td>
+					  </tr>
+					</tbody>
+					<tfoot class="hide-if-no-paging">
+					  <tr>
+						  <td colspan="5" class="text-center">
+							  <ul class="pagination"></ul>
+						  </td>
+					  </tr>
+					</tfoot>
+				  </table>
+				</div>
+			  </div>
+			  <!-- / streamline -->
+			</div>
+          </div>
+          <div class="col-md-2">     
+			<div class="panel wrapper">       
+				<div class="row row-sm">
+				  <div class="col-xs-6 col-md-12 text-center">
+					<div ui-jq="easyPieChart" ui-options="{
+						percent: (StatistikService.data.sepedaSedangDipinjam * 100 / StatistikService.data.jumlahSepeda) || 0,
+						lineWidth: 4,
+						trackColor: '{{app.color.light}}',
+						barColor: '{{app.color.primary}}',
+						scaleColor: false,
+						size: 70,
+						rotate: 90,
+						lineCap: 'butt'
+					  }" class="inline m-t">
+					  <div>
+						<span class="text-primary h4">{{ StatistikService.data.sepedaSedangDipinjam || '-'}}</span>
+					  </div>
+					</div>
+					<div class="text-muted font-bold text-xs m-t m-b">Sepeda sedang dipinjam</div>
+				  </div>
+				  <div class="col-xs-6 col-md-12 text-center">
+					<div ui-jq="easyPieChart" ui-options="{
+						percent: (StatistikService.data.shelterSedangBuka * 100 / StatistikService.data.jumlahShelter) || 0,
+						lineWidth: 4,
+						trackColor: '{{app.color.light}}',
+						barColor: '{{app.color.info}}',
+						scaleColor: false,
+						size: 70,
+						rotate: 180,
+						lineCap: 'butt'
+					  }" class="inline m-t">
+					  <div>
+						<span class="text-info h4">{{ StatistikService.data.shelterSedangBuka || '-'}}</span>
+					  </div>
+					</div>
+					<div class="text-muted font-bold text-xs m-t m-b">Shelter sedang buka</div>
+				  </div>
+				</div>  
+			</div>
+          </div>
+        </div>
+      <!-- / statistik hari ini -->
+	  
+      <!-- stats -->
+      <div class="row">
+        <div class="col-md-7">
+          <div class="panel wrapper">
+            <label class="i-switch bg-warning pull-right" ng-init="showSpline=true">
+              <input type="checkbox" ng-model="showSpline">
+              <i></i>
+            </label>
+            <h4 class="font-thin m-t-none m-b text-muted">Peminjaman Sepeda Bulanan</h4>
+            <div ui-jq="plot" ui-refresh="JumlahPeminjamanService.reloadChart + showSpline" ui-options="
+              [
+                { data: {{JumlahPeminjamanService.data.pinjam}}, label:'Peminjaman', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.01, lineWidth: 1, fill: 0.8 } },
+                { data: {{JumlahPeminjamanService.data.kembali}}, label:'Pengembalian', points: { show: true, radius: 1}, splines: { show: showSpline, tension: 0.01, lineWidth: 1, fill: 0.8 } }
+              ], 
+              {
+                colors: ['{{app.color.info}}', '{{app.color.success}}'],
+                series: { shadowSize: 3 },
+                xaxis:{ 
+					font: { color: '#a1a7ac' },                  
+					position: 'bottom',                  
+					ticks: JumlahPeminjamanService.index
+				},
+                yaxis:{ font: { color: '#a1a7ac' }, max:20 },
+                grid: { hoverable: true, clickable: true, borderWidth: 0, color: '#dce5ec' },
+                tooltip: true,
+                tooltipOpts: { content: '%y sepeda',  defaultTheme: false, shifts: { x: 10, y: -25 } }
+              }
+            " style="height:246px" >
+            </div>
+          </div>
+        </div>
+		
+        <div class="col-md-5">
+          <div class="row row-sm text-center">
+            <div class="col-xs-6">
+              <a ui-sref="ai.sepeda" class="block panel padder-v bg-info item">
+                <span class="text-white font-thin h1 block">{{ StatistikService.data.jumlahSepeda || '-'}}</span>
+                <span class="text-muted text-xs">Sepeda</span>
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <a ui-sref="ai.mahasiswa" class="block panel padder-v bg-primary item">
+                <span class="text-white font-thin h1 block">{{ StatistikService.data.jumlahMahasiswa || '-'}}</span>
+                <span class="text-muted text-xs">Mahasiswa</span>
+              </a>
+            </div>
+            <div class="col-xs-6">
+              <div class="panel padder-v item">
+                <div class="h1 text-info font-thin h1">{{ StatistikService.data.jumlahShelter || '-'}}</div>
+                <span class="text-muted text-xs">Shelter</span>
+              </div>
+            </div>
+            <div class="col-xs-6">
+              <a ui-sref="ai.penjaga" class="block panel padder-v bg-success item">
+                <span class="text-white font-thin h1 block">{{ StatistikService.data.jumlahPenjaga || '-'}}</span>
+                <span class="text-muted text-xs">Penjaga</span>
+              </a>
+            </div>
+            <div class="col-xs-12 m-b-md">
+              <div class="r bg-light dker item hbox no-border">
+                <div class="col dk padder-v r-r">
+                  <div class="text-primary-dk font-thin h1"><span>{{ StatistikService.data.jumlahPinjaman || '-'}}</span></div>
+                  <span class="text-muted text-xs">Total peminjaman sepeda bulan ini</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- / stats -->
+	  
+    </div>
+  </div>
+  <!-- / main -->
+</div>

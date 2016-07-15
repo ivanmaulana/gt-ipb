@@ -1,0 +1,115 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-n font-thin h3">Mahasiswa</h1>
+</div>
+<div class="wrapper-md" ng-controller="MahasiswaCtrl">	
+  <!-- toaster directive -->
+  <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+  <!-- / toaster directive -->
+	
+	<div class="panel panel-default">
+		<div class="panel-heading font-bold">Cari Mahasiswa</div>
+		<div class="panel-body">
+		  <form class="bs-example form-horizontal ng-pristine ng-valid" ng-submit="cariMahasiswa()">
+			<div class="form-group">
+			  <label class="col-md-2 control-label">NIM</label>
+			  <div class="col-md-2">
+				<input ng-model="mahasiswaCari.nim" class="form-control" type="text">
+			  </div>
+			</div>
+			<div class="form-group">
+			  <div class="col-md-offset-2 col-md-10">
+				<button type="submit" class="btn btn-sm btn-info">Cari</button>
+			  </div>
+			</div>
+		  </form>
+		</div>
+	  </div>  
+  
+  
+  
+	<div id="formEdit" class="panel panel-default" ng-show="mahasiswaEdit">
+        <div class="panel-heading font-bold">Informasi Mahasiswa</div>
+        <div class="panel-body">
+          <form class="bs-example form-horizontal ng-pristine ng-valid" ng-submit="doEdit()">
+            <div class="form-group">
+              <p class="col-md-12"><strong>{{mahasiswaEdit.mahasiswaNama}} ({{ (mahasiswaEdit.mahasiswaNimS3!="0") ? mahasiswaEdit.mahasiswaNimS3 : ((mahasiswaEdit.mahasiswaNimS2 != "0") ? mahasiswaEdit.mahasiswaNimS2 : mahasiswaEdit.mahasiswaNim)}})</strong><br/></p>
+			  
+              <label class="col-md-1 control-label">Status</label>
+              <div class="col-md-3">
+                <select ng-disabled="sepedaEdit.sepedaId==0" ng-model="mahasiswaEdit.mahasiswaStatus" class="form-control">
+				  <option value="0" ng-selected="mahasiswaEdit.mahasiswaStatus == 0">tidak pinjam</option>
+				  <option value="1" ng-selected="mahasiswaEdit.mahasiswaStatus == 1">sedang pinjam</option>
+				  <option value="2" ng-selected="mahasiswaEdit.mahasiswaStatus == 2">di blacklist</option>
+				</select>
+              </div>			  			  
+
+              <label class="col-md-1 control-label">Denda</label>
+              <div class="col-md-3">
+                <input ng-model="mahasiswaEdit.mahasiswaDenda" ui-jq="TouchSpin" class="form-control" data-min="0" data-max="999999999999" data-verticalbuttons="true" data-verticalupclass="fa fa-caret-up" data-verticaldownclass="fa fa-caret-down" type="text">
+              </div>
+			  
+            </div>
+            <div class="form-group">
+              <div class="col-md-offset-2 col-md-10">
+                <button type="submit" class="btn btn-sm btn-success" >Edit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+	  
+	  
+<div class="panel panel-default">
+	<div class="panel-heading font-bold">Informasi Mahasiswa yang Denda</div>
+	<div class="panel-body b-b b-light">
+	  Search: <input id="filter" type="text" class="form-control input-sm w-sm inline m-r"/>
+	</div>
+	<div>
+	  <table class="table m-b-none" ui-jq="footable" data-filter="#filter" data-page-size="20">
+		<thead class="hide-if-no-paging">
+		  <tr>
+			  <td colspan="4" class="text-center">
+				  <ul class="pagination"></ul>
+			  </td>
+		  </tr>
+		</thead>
+		<thead>
+		  <tr>
+			  <th data-toggle="true">
+				  NIM
+			  </th>
+			  <th data-hide="phone, tablet">
+				  Nama
+			  </th>
+			  <th data-hide="phone, tablet">
+				  Status
+			  </th>
+			  <th>
+				  Denda
+			  </th>
+			  <th>
+				  Action
+			  </th>
+		  </tr>
+		</thead>
+		<tbody>
+		  <tr ng-repeat="mahasiswa in MahasiswaService.data">
+			  <td>{{ (mahasiswa.mahasiswaNimS3!="0") ? mahasiswa.mahasiswaNimS3 : ((mahasiswa.mahasiswaNimS2 != "0") ? mahasiswa.mahasiswaNimS2 : mahasiswa.mahasiswaNim ) }}</td>
+			  <td>{{ mahasiswa.mahasiswaNama }}</td>
+			  <td>{{ (mahasiswa.mahasiswaStatus=="0") ? 'tidak pinjam' : ((mahasiswa.mahasiswaStatus=="1") ? 'sedang pinjam' : 'di blacklist') }}</td>
+			  <td>Rp {{ mahasiswa.mahasiswaDenda | number }}</td>
+			  <td><button class="btn btn-sm btn-success" ng-click="editMahasiswa(mahasiswa)">Edit</button></td>
+		  </tr>
+		</tbody>
+		<tfoot class="hide-if-no-paging">
+		  <tr>
+			  <td colspan="4" class="text-center">
+				  <ul class="pagination"></ul>
+			  </td>
+		  </tr>
+		</tfoot>
+	  </table>
+	</div>
+  </div>
+
+</div>
