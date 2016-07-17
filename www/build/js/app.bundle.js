@@ -134,7 +134,7 @@ var AboutPage = (function () {
         loading.onDismiss(function () {
             if (_this.koneksi) {
                 _this.creds = JSON.stringify({ pesan: _this.pesan, nim: _this.nim });
-                _this.http.post("http://greentransport.ipb.ac.id/api/pesan.php", _this.creds)
+                _this.http.post("http://greentransport.ipb.ac.id/api/pesan", _this.creds)
                     .subscribe(function (data) {
                     _this.response = data._body;
                 });

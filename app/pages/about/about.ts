@@ -80,7 +80,7 @@ export class AboutPage {
     loading.onDismiss(() => {
       if (this.koneksi){
         this.creds = JSON.stringify({pesan: this.pesan, nim: this.nim});
-        this.http.post("http://greentransport.ipb.ac.id/api/pesan.php", this.creds)
+        this.http.post("http://greentransport.ipb.ac.id/api/pesan", this.creds)
             .subscribe(data => {
                     this.response = data._body;
         });
