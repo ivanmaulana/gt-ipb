@@ -5,6 +5,7 @@ import {UserData} from './providers/user-data';
 import {TabsPage} from './pages/tabs/tabs';
 import {LoginPage} from './pages/login/login';
 import {TutorialPage} from './pages/tutorial/tutorial';
+import {RankPage} from './pages/rank/rank';
 
 interface PageObj {
   title: string;
@@ -28,7 +29,8 @@ class ConferenceApp {
   appPages: PageObj[] = [
     { title: 'Schedule', component: TabsPage, icon: 'calendar' },
     { title: 'Speakers', component: TabsPage, index: 1, icon: 'contacts' },
-    { title: 'About', component: TabsPage, index: 3, icon: 'information-circle' },
+    { title: 'About', component: TabsPage, index: 3, icon: 'information-circle'},
+    { title: 'Rank', component: TabsPage, index: 4, icon: 'information-circle'},
   ];
   loggedInPages: PageObj[] = [
     { title: 'Logout', component: TabsPage, icon: 'log-out' }
@@ -36,7 +38,7 @@ class ConferenceApp {
   loggedOutPages: PageObj[] = [
     { title: 'Login', component: LoginPage, icon: 'log-in' }
   ];
-  rootPage: any = TabsPage;
+  rootPage = TabsPage;
   status: boolean;
   storage: any;
 

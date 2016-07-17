@@ -1,0 +1,1 @@
+CREATE VIEW recentPinjam AS SELECT p.mahasiswaNim, m.mahasiswaNama, p.pinjamanWaktuPinjam FROM pinjaman AS p, mahasiswa AS m WHERE penjagaIdPinjam != "30" AND p.mahasiswaNim = m.mahasiswaNim GROUP BY mahasiswaNim ORDER BY pinjamanWaktuPinjam DESC LIMIT 3

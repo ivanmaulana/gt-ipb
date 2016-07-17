@@ -67,11 +67,9 @@
     </ion-card>
   </div>
 
-  <hr />
-  <div text-center>
-    <ion-card>
-    <h2 primary>Jumlah sepeda di shelter saat ini</h2>
-    <!-- <p grey>Yuk, naik sepeda.</p> -->
+  <div text-center *ngIf="posts">
+    <ion-card><br />
+    <h2 primary><b>Jumlah sepeda di shelter saat ini</b></h2>
     <div *ngFor="#post of posts">
       <ion-grid>
         <ion-row>
@@ -92,12 +90,13 @@
       </ion-grid>
     </div>
     </ion-card>
-
-    <ion-card><br />
-    <h2 primary>Lokasi Shelter Sepeda</h2>
-    <img src="img/rute/shelter.png"/>
-    </ion-card>
   </div>
+
+  <ion-card><br />
+    <h2 primary text-center><b>Lokasi Shelter Sepeda</b></h2>
+    <img src="img/rute/shelter.png"/>
+  </ion-card>
+
   <br /><br />
 
 </ion-content>

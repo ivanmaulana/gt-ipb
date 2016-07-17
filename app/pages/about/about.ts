@@ -89,6 +89,7 @@ export class AboutPage {
       }
       else {
         this.alertGagal();
+        this.koneksi = 20;
       }
 
     });
@@ -101,6 +102,7 @@ export class AboutPage {
     this.http.get("http://greentransport.ipb.ac.id/api/test.php")
         .subscribe(data => {
                 this.koneksi = data._body;
+                this.koneksi = 1;
         })
 
     this.loading();
