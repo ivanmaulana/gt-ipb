@@ -31,7 +31,7 @@
         Peminjaman Sepeda Hari Ini :
       </h2>
       <div item-right>
-        <h1 instagram><b>40</b></h1>
+        <h1 instagram><b>{{pinjaman}}</b></h1>
       </div>
     </ion-item>
   </ion-card>
@@ -43,7 +43,7 @@
     </p>
   </div>
 
-  <div *ngFor="#post of posts;  let i = index">
+  <div *ngFor="#ranking of rankings;  let i = index">
     <ion-card>
       <ion-item>
         <ion-icon *ngIf="i == 0" name="trophy" gold width="100%" large item-left></ion-icon>
@@ -52,10 +52,10 @@
         <ion-icon *ngIf="i == 3" name="trophy" twitter width="100%" large item-left></ion-icon>
         <ion-icon *ngIf="i == 4" name="trophy" silver width="100%" large item-left></ion-icon>
         <ion-icon *ngIf="i == 5" name="trophy" bronze width="100%" large item-left></ion-icon>
-        <h3 primary>{{post.mahasiswaNama}}</h3>
-        <p>{{post.mahasiswaNim}}</p>
+        <h3 primary>{{ranking.mahasiswaNama}}</h3>
+        <p>{{ranking.mahasiswaNim}}</p>
         <div item-right large>
-          <span grey><b instagram>{{post.banyakPinjaman}}</b> Poin</span>
+          <span grey><b instagram>{{ranking.banyakPinjaman}}</b> Poin</span>
         </div>
       </ion-item>
     </ion-card>

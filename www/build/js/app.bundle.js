@@ -559,8 +559,11 @@ var RankPage = (function () {
         this.http.get('http://greentransport.ipb.ac.id/api/rank')
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
-            _this.posts = data;
-            // this.rank[0] = data[0].mahasiswaNama;
+            _this.rankings = data;
+        });
+        this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
+            .subscribe(function (data) {
+            _this.pinjaman = data._body;
         });
     };
     RankPage.prototype.login = function () {
@@ -585,11 +588,14 @@ var RankPage = (function () {
     };
     RankPage.prototype.doRefresh = function (refresher) {
         var _this = this;
-        this.http.get('http://devagrstudio.com/SepedaKampus/get_rank.php')
+        this.http.get('http://greentransport.ipb.ac.id/api/rank')
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
-            _this.posts = data;
-            _this.contoh = data[0].mahasiswaNama;
+            _this.rankings = data;
+        });
+        this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
+            .subscribe(function (data) {
+            _this.pinjaman = data._body;
         });
         setTimeout(function () {
             console.log('Async operation has ended');

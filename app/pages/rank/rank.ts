@@ -14,9 +14,10 @@ export class RankPage {
   storage: any;
   nama: any;
   status: any;
-  posts: any;
+  rankings: any;
   contoh: any;
   ranks: string[] = ['gold', 'primary', 'instagram', 'twitter', 'silver', 'bronze'];
+  pinjaman: any;
 
   onPageWillEnter(){
     this.storage.get('hasLoggedIn').then((status) => {
@@ -26,8 +27,12 @@ export class RankPage {
     this.http.get('http://greentransport.ipb.ac.id/api/rank')
       .map(res => res.json())
         .subscribe(data => {
-          this.posts = data;
-          // this.rank[0] = data[0].mahasiswaNama;
+          this.rankings = data;
+    });
+
+    this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
+        .subscribe(data => {
+          this.pinjaman = data._body;
     });
   }
 
@@ -58,12 +63,15 @@ export class RankPage {
     }
 
     doRefresh(refresher) {
-
-      this.http.get('http://devagrstudio.com/SepedaKampus/get_rank.php')
+      this.http.get('http://greentransport.ipb.ac.id/api/rank')
         .map(res => res.json())
           .subscribe(data => {
-            this.posts = data;
-            this.contoh = data[0].mahasiswaNama;
+            this.rankings = data;
+      });
+
+      this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
+          .subscribe(data => {
+            this.pinjaman = data._body;
       });
 
       setTimeout(() => {
