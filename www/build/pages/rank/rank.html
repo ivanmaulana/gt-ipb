@@ -1,0 +1,131 @@
+<ion-navbar *navbar class="hide-border">
+  <ion-title>Rank</ion-title>
+  <button menuToggle end (click)="tutorial()" showWhen="ios">
+    <ion-icon name="bulb" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="tutorial()" hideWhen="ios">
+    <ion-icon name="bulb" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="ios">
+    <ion-icon name="log-in" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" hideWhen="ios">
+    <ion-icon name="log-in" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="logout()" *ngIf="status" hideWhen="ios">
+    <ion-icon name="log-out" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="ios">
+    <ion-icon name="log-out" primary></ion-icon>
+  </button>
+</ion-navbar>
+
+<ion-content class="rank">
+  <ion-refresher (refresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-card>
+    <ion-item>
+      <h2 primary>
+        Peminjaman Sepeda Hari Ini :
+      </h2>
+      <div item-right>
+        <h1 instagram><b>40</b></h1>
+      </div>
+    </ion-item>
+  </ion-card>
+
+  <br />
+  <div padding-left>
+    <p primary>
+      <b>Ranking Peminjam Sepeda</b>
+    </p>
+  </div>
+
+  <div *ngFor="#post of posts;  let i = index">
+    <ion-card>
+      <ion-item>
+        <ion-icon *ngIf="i == 0" name="trophy" gold width="100%" large item-left></ion-icon>
+        <ion-icon *ngIf="i == 1" name="trophy" primary width="100%" large item-left></ion-icon>
+        <ion-icon *ngIf="i == 2" name="trophy" instagram width="100%" large item-left></ion-icon>
+        <ion-icon *ngIf="i == 3" name="trophy" twitter width="100%" large item-left></ion-icon>
+        <ion-icon *ngIf="i == 4" name="trophy" silver width="100%" large item-left></ion-icon>
+        <ion-icon *ngIf="i == 5" name="trophy" bronze width="100%" large item-left></ion-icon>
+        <h3 primary>{{post.mahasiswaNama}}</h3>
+        <p>{{post.mahasiswaNim}}</p>
+        <div item-right large>
+          <span grey><b instagram>{{post.banyakPinjaman}}</b> Poin</span>
+        </div>
+      </ion-item>
+    </ion-card>
+  </div>
+
+<!--
+  <br />
+  <div padding-left>
+    <p primary>
+      <b>Peminjam Terkini</b>
+    </p>
+  </div>
+
+  <ion-card>
+    <ion-list>
+      <ion-item>
+        <span grey>
+          Ivan Maulana Putra
+        </span>
+        <div item-right instagram>
+          <p>
+            <ion-icon name="time" instagram></ion-icon> 20m
+          </p>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <span grey>
+          Ivan Maulana Putra
+        </span>
+        <div item-right instagram>
+          <p>
+            <ion-icon name="time" instagram></ion-icon> 20m
+          </p>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <span grey>
+          Ivan Maulana Putra
+        </span>
+        <div item-right instagram>
+          <p>
+            <ion-icon name="time" instagram></ion-icon> 20m
+          </p>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <span grey>
+          Ivan Maulana Putra
+        </span>
+        <div item-right instagram>
+          <p>
+            <ion-icon name="time" instagram></ion-icon> 20m
+          </p>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <span grey>
+          Ivan Maulana Putra
+        </span>
+        <div item-right instagram>
+          <p>
+            <ion-icon name="time" instagram></ion-icon> 20m
+          </p>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-card> -->
+
+</ion-content>

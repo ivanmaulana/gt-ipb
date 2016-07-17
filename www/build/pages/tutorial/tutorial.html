@@ -1,0 +1,38 @@
+<ion-navbar *navbar>
+  <ion-buttons end *ngIf="showSkip">
+    <button hideWhen="ios" (click)="startApp()" primary>Skip</button>
+    <button showWhen="ios" (click)="startIos()" primary>Skip</button>
+  </ion-buttons>
+</ion-navbar>
+
+<ion-content>
+  <ion-slides pager (slideChangeStart)="onSlideChangeStart($event)">
+    <ion-slide >
+      <img src="img/BALIHO-GREEN-CAMPUS-SELAMAT-DATANG-compressor.jpg" class="bg"/>
+    </ion-slide>
+    <ion-slide>
+      <img src="img/BALIHO-GREEN-CAMPUS-HIMBAUAN-PARKIR-compressor.jpg" style="min-width:100%;min-height:100%"/>
+    </ion-slide>
+    <ion-slide>
+      <img src="img/Papan-Petunjuk-Umum-compressor.jpg" style="min-width:100%;min-height:100%"/>
+    </ion-slide>
+    <ion-slide *ngFor="#slide of slides">
+      <img [src]="slide.image" class="slide-image"/>
+      <h2 primary class="slide-title" [innerHTML]="slide.title"></h2>
+      <p [innerHTML]="slide.description"></p>
+    </ion-slide>
+    <ion-slide>
+      <ion-toolbar>
+      </ion-toolbar>
+      <img src="img/gc.jpg" class="slide-image"/>
+      <button large clear hideWhen="ios" (click)="startApp()">
+        Continue
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+      <button large clear showWhen="ios" (click)="startIos()">
+        Continue
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-slide>
+  </ion-slides>
+</ion-content>

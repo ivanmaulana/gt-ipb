@@ -23,7 +23,7 @@ export class RankPage {
          this.status = status;
     });
 
-    this.http.get('http://greentransport.ipb.ac.id/api/get_rank.php')
+    this.http.get('http://greentransport.ipb.ac.id/api/rank')
       .map(res => res.json())
         .subscribe(data => {
           this.posts = data;

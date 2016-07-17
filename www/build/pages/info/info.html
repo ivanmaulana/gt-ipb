@@ -1,0 +1,99 @@
+<ion-navbar *navbar>
+  <ion-title>Info</ion-title>
+  <button menuToggle end (click)="tutorial()" showWhen="ios">
+    <ion-icon name="bulb" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="tutorial()" hideWhen="ios">
+    <ion-icon name="bulb" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="ios">
+    <ion-icon name="log-in" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" hideWhen="ios">
+    <ion-icon name="log-in" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="logout()" *ngIf="status" hideWhen="ios">
+    <ion-icon name="log-out" light></ion-icon>
+  </button>
+  <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="ios">
+    <ion-icon name="log-out" primary></ion-icon>
+  </button>
+</ion-navbar>
+
+<ion-content class="outer-content speaker-list">
+  <div>
+  <ion-slides pager zoom="1" zoomDuration="1" zoomMax="10">
+    <ion-slide zoom>
+      <ion-card>
+        <img (click)="openModal({maps: 0})" src="img/rute/koridor1.png" width="100%"/>
+        <ion-card-content>
+          <ion-card-title>
+            <h2 primary><b>Koridor 1</b></h2>
+          </ion-card-title>
+          <p>
+            GWW <-> BERLIN <-> MIPA <-> ASTRI <-> TANOTO <-> MENWA <-> FAHUTAN <-> ASRAMA INTER <-> ALHURR <-> GOR <-> FPIK <-> FKH
+          </p><hr />
+          <h2 primary><b>Jadwal Koridor</b></h2><br />
+          <p>
+            <span primary>Jadwal Kedatangan Bis</span> : Setiap 8 Menit<br />
+            <span primary>Waktu Operasi</span> : 06.00 - 18.00<br />
+          </p><br />
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card>
+        <img (click)="openModal({maps: 1})" src="img/rute/koridor2.png" width="100%"/>
+        <ion-card-content>
+          <ion-card-title>
+            <h2 primary><b>Koridor 2</b></h2>
+            </ion-card-title>
+          <p>
+            TANOTO <-> FAHUTAN <-> FATETA <-> LSI <-> TECHNO <-> ASRAMA INTER <-> ALHURR <-> GOR <-> FPIK <-> FAPET <-> FKH
+          </p><br /><hr />
+          <h2 primary><b>Jadwal Koridor</b></h2><br />
+          <p>
+            Koridor ini hanya dilayani oleh <span primary><b>Mobil Listrik</b></span>
+          </p><br /><br />
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card>
+        <img (click)="openModal({maps: 2})" src="img/rute/koridor3.png" width="100%"/>
+        <ion-card-content>
+          <ion-card-title>
+            <h2 primary><b>Koridor 3</b></h2>
+            </ion-card-title>
+          <p>
+            GWW <-> FEM <-> LSI <-> TECHNO <-> ALHURR <-> GOR <-> FPIK <-> FKH
+          </p><br /><hr />
+          <h2 primary><b>Jadwal Koridor</b></h2><br />
+          <p>
+            <span primary>Jadwal Kedatangan Bis</span> : Setiap 8 Menit<br />
+            <span primary>Waktu Operasi</span> : 06.00 - 18.00<br />
+          </p><br /><br />
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card>
+        <img (click)="openModal({maps: 3})" src="img/rute/koridor4.png" width="100%"/>
+        <ion-card-content>
+          <ion-card-title>
+            <h2 primary><b>Koridor 4</b></h2>
+            </ion-card-title>
+          <p>
+            GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH
+          </p><br /><hr />
+          <h2 primary><b>Jadwal Koridor</b></h2><br />
+          <p>
+            <span primary>Jadwal Kedatangan Bis</span> : Setiap 24 Menit<br />
+            <span primary>Waktu Operasi</span> : 06.00 - 18.00<br />
+          </p><br /><br />
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  </div>
+</ion-content>

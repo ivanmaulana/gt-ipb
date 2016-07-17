@@ -21,6 +21,8 @@ export class HomePage {
   code: boolean = true;
   qrcode: any;
   barcode: any;
+  token: any;
+  creds: any;
 
   onPageWillEnter(){
     this.do();
@@ -74,27 +76,31 @@ export class HomePage {
          this.nim = nim;
     });
 
-    this.storage.get('nama').then((nim) => {
-         this.nama = nim;
+    this.storage.get('nama').then((nama) => {
+         this.nama = nama;
     });
 
-    this.storage.get('denda').then((nim) => {
-         this.denda = nim;
+    this.storage.get('denda').then((denda) => {
+         this.denda = denda;
     });
 
-    this.storage.get('qrcode').then((nim) => {
-         this.qrcode = nim;
+    this.storage.get('qrcode').then((qrcode) => {
+         this.qrcode = qrcode;
     });
 
-    this.storage.get('barcode').then((nim) => {
-         this.barcode = nim;
+    this.storage.get('barcode').then((barcode) => {
+         this.barcode = barcode;
     });
 
-    this.storage.get('mahasiswastatus').then((nim) => {
-         this.mahasiswastatus = nim;
+    this.storage.get('token').then((token) => {
+         this.token = token;
     });
 
-    this.http.get('http://devagrstudio.com/SepedaKampus/get_data_sepeda.php')
+    this.storage.get('mahasiswastatus').then((mahasiswastatus) => {
+         this.mahasiswastatus = mahasiswastatus;
+    });
+
+    this.http.get('http://greentransport.ipb.ac.id/api/sepeda')
       .map(res => res.json())
         .subscribe(data => {
           this.posts = data;
@@ -102,19 +108,16 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-
-    this.http.get('http://greentransport.ipb.ac.id/api/get_data_mahasiswa.php?nim='+this.nim)
+    this.creds = JSON.stringify({nim: this.nim, token: this.token});
+    this.http.post("http://greentransport.ipb.ac.id/api/mahasiswa", this.creds)
       .map(res => res.json())
         .subscribe(data => {
-          this.storage.set("nama", data[0]['mahasiswaNama']);
-          this.storage.set("mahasiswastatus", data[0]['mahasiswaStatus']);
-          this.storage.set("denda", data[0]['mahasiswaDenda']);
-          this.storage.set("qrcode", data[0]['encode']);
-          this.storage.set("barcode", data[0]['barcode']);
-          this.storage.set("status", true);
-          this.denda = data[0]['mahasiswaDeda'];
           this.mahasiswastatus = data[0]['mahasiswaStatus'];
-    });
+          this.denda = data[0]['mahasiswaDenda'];
+
+          this.storage.set("mahasiswastatus", this.mahasiswastatus);
+          this.storage.set("denda", this.denda);
+        });
 
     this.do();
 
