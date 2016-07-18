@@ -24,7 +24,13 @@
   <ion-refresher (refresh)="doRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-  <br>
+
+  <!-- <div>
+    <ion-scroll scrollX="true" scrollY="true" style="width: 100%; height: 500px" zooming="true">
+      <div style="height: 753px; width: 1064px; background: url('img/rute/shelter.png') repeat"></div>
+    </ion-scroll>
+  </div> -->
+
   <div padding *ngIf="!status">
     <div text-center>
       <p danger>
@@ -35,6 +41,7 @@
   </div>
 
   <div *ngIf="status">
+    <br />
     <div class="row" align="center">
       <button primary (click)="change()">Code Kamu</button>
     </div>
@@ -49,9 +56,7 @@
 
     <ion-card>
     <ion-item>
-      <!-- <h2>{{post.mahasiswaNim}}</h2> -->
       <h2>{{nim}}</h2>
-      <!-- <p>{{post.mahasiswaNama}}</p> -->
       <p>{{nama}}</p>
       <button item-right danger>Denda = Rp. {{denda}}</button>
     </ion-item>
@@ -73,26 +78,26 @@
     <div *ngFor="#post of posts">
       <ion-grid>
         <ion-row>
-          <ion-col width-20><h2 primary>{{post.shelter1}}</h2><br />GWW</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter2}}</h2><br />GWW-2</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter3}}</h2><br />ASTRI</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter4}}</h2><br />ASTRA</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter5}}</h2><br />MENWA</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter1}}</b></h2><br />GWW</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter2}}</b></h2><br />GWW-2</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter3}}</b></h2><br />ASTRI</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter4}}</b></h2><br />ASTRA</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter5}}</b></h2><br />MENWA</ion-col>
         </ion-row>
         <hr />
         <ion-row>
-          <ion-col width-20><h2 primary>{{post.shelter6}}</h2><br />FATETA</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter7}}</h2><br />ALHUR</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter8}}</h2><br />SYLVA</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter9}}</h2><br />FAPET</ion-col>
-          <ion-col width-20><h2 primary>{{post.shelter10}}</h2><br />REKTORAT</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter6}}</b></h2><br />FATETA</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter7}}</b></h2><br />ALHUR</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter8}}</b></h2><br />SYLVA</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter9}}</b></h2><br />FAPET</ion-col>
+          <ion-col width-20><h2 instagram><b>{{post.shelter10}}</b></h2><br />REKTORAT</ion-col>
         </ion-row>
       </ion-grid>
     </div>
     </ion-card>
   </div>
 
-  <ion-card><br />
+  <ion-card (click)="openModal()"><br />
     <h2 primary text-center><b>Lokasi Shelter Sepeda</b></h2>
     <img src="img/rute/shelter.png"/>
   </ion-card>

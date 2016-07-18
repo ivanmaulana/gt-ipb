@@ -25,7 +25,7 @@
   <ion-slides pager zoom="1" zoomDuration="1" zoomMax="10">
     <ion-slide zoom>
       <ion-card>
-        <img src="img/rute/koridor1.png"/>
+        <img (click)="openModal({maps: 0})" src="img/rute/koridor1.png" width="100%"/>
         <ion-card-content>
           <ion-card-title>
             <h2 primary><b>Koridor 1</b></h2>
@@ -33,7 +33,6 @@
           <p>
             GWW <-> BERLIN <-> MIPA <-> ASTRI <-> TANOTO <-> MENWA <-> FAHUTAN <-> ASRAMA INTER <-> ALHURR <-> GOR <-> FPIK <-> FKH
           </p><hr />
-          <!-- <button block primary (click)="doAlert()">Jadwal Koridor</button> -->
           <h2 primary><b>Jadwal Koridor</b></h2><br />
           <p>
             <span primary>Jadwal Kedatangan Bis</span> : Setiap 8 Menit<br />
@@ -44,7 +43,7 @@
     </ion-slide>
     <ion-slide>
       <ion-card>
-        <img src="img/rute/koridor2.png"/>
+        <img (click)="openModal({maps: 1})" src="img/rute/koridor2.png" width="100%"/>
         <ion-card-content>
           <ion-card-title>
             <h2 primary><b>Koridor 2</b></h2>
@@ -52,17 +51,16 @@
           <p>
             TANOTO <-> FAHUTAN <-> FATETA <-> LSI <-> TECHNO <-> ASRAMA INTER <-> ALHURR <-> GOR <-> FPIK <-> FAPET <-> FKH
           </p><br /><hr />
-          <!-- <button block primary (click)="doAlert()">Jadwal Koridor</button> -->
           <h2 primary><b>Jadwal Koridor</b></h2><br />
           <p>
-            Koridor ini hanya dilayani oleh <span primary>Mobil Listrik</span>
+            Koridor ini hanya dilayani oleh <span primary><b>Mobil Listrik</b></span>
           </p><br /><br />
         </ion-card-content>
       </ion-card>
     </ion-slide>
     <ion-slide>
       <ion-card>
-        <img src="img/rute/koridor3.png"/>
+        <img (click)="openModal({maps: 2})" src="img/rute/koridor3.png" width="100%"/>
         <ion-card-content>
           <ion-card-title>
             <h2 primary><b>Koridor 3</b></h2>
@@ -70,7 +68,6 @@
           <p>
             GWW <-> FEM <-> LSI <-> TECHNO <-> ALHURR <-> GOR <-> FPIK <-> FKH
           </p><br /><hr />
-          <!-- <button block primary (click)="doAlert()">Jadwal Koridor</button> -->
           <h2 primary><b>Jadwal Koridor</b></h2><br />
           <p>
             <span primary>Jadwal Kedatangan Bis</span> : Setiap 8 Menit<br />
@@ -81,7 +78,7 @@
     </ion-slide>
     <ion-slide>
       <ion-card>
-        <img src="img/rute/koridor4.png"/>
+        <img (click)="openModal({maps: 3})" src="img/rute/koridor4.png" width="100%"/>
         <ion-card-content>
           <ion-card-title>
             <h2 primary><b>Koridor 4</b></h2>
@@ -89,7 +86,6 @@
           <p>
             GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH
           </p><br /><hr />
-          <!-- <button block primary (click)="doAlert()">Jadwal Koridor</button> -->
           <h2 primary><b>Jadwal Koridor</b></h2><br />
           <p>
             <span primary>Jadwal Kedatangan Bis</span> : Setiap 24 Menit<br />

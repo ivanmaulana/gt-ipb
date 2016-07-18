@@ -72,14 +72,14 @@ export class LoginPage {
   presentLoading() {
     let loading = Loading.create({
       content: "Please wait...",
-      duration: 3000
+      duration: 4000
     });
 
     loading.onDismiss(() => {
         if (!this.status){
           this.alertGagal();
         }
-        else if (this.response && this.status){
+        else if (this.response){
           this.submitted = true;
           this.userData.setNim(this.response);
           this.userData.setStatus(1);

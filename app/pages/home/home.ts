@@ -1,5 +1,5 @@
-import {ViewChild} from '@angular/core';
-import {IonicApp, Page, Modal, Alert, NavController, ItemSliding, List, Storage, LocalStorage} from 'ionic-angular';
+import {ViewChild, Component} from '@angular/core';
+import {IonicApp, Page, Modal, Alert, NavController, ItemSliding, List, Storage, LocalStorage, Platform, ViewController} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {Http} from '@angular/http';
 import {LoginPage} from '../login/login';
@@ -40,7 +40,6 @@ export class HomePage {
 
   change(){
     this.user.setCode(!this.code);
-
     this.code = !this.code;
   }
 
@@ -123,5 +122,24 @@ export class HomePage {
       console.log('Async operation has ended');
       refresher.complete();
     }, 2000);
+  }
+
+  openModal() {
+    let modal = Modal.create(ModalsContentPage);
+    this.nav.present(modal);
+}
+}
+
+@Component({
+  templateUrl: './build/pages/home/modal-content.html'
+})
+class ModalsContentPage {
+
+  constructor(public platform: Platform,public viewCtrl: ViewController) {
+
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
   }
 }

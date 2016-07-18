@@ -1,4 +1,5 @@
-import {NavController, Page, ActionSheet, Alert, Storage, LocalStorage} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {NavController, Page, ActionSheet, Modal, Alert, Storage, LocalStorage, ViewController, Platform, NavParams} from 'ionic-angular';
 import {LoginPage} from '../login/login';
 import {TabsPage} from '../tabs/tabs';
 import {TutorialPage} from '../tutorial/tutorial';
@@ -44,4 +45,49 @@ export class InfoPage {
     this.nav.push(TutorialPage);
   }
 
+  openModal(maps) {
+    let modal = Modal.create(ModalsContentPage, maps);
+    this.nav.present(modal);
+  }
+}
+
+@Component({
+  templateUrl: './build/pages/info/modal-content.html'
+})
+class ModalsContentPage {
+  maps;
+
+  constructor(
+      public platform: Platform,
+      public params: NavParams,
+      public viewCtrl: ViewController
+  ) {
+    var maps= [
+      {
+        name: 'Koridor 1',
+        detail: 'GWW <-> BERLIN <-> MIPA <-> ASTRI <-> TANOTO <-> MENWA <-> FAHUTAN <-> ASRAMA INTER <-> ALHURR <-> GOR <-> FPIK <-> FKH',
+        image: 1
+      },
+      {
+        name: 'Koridor 2',
+        detail: 'GWW <-> BERLIN <-> MIPA <-> ASTRI <-> TANOTO <-> MENWA <-> FAHUTAN <-> ASRAMA INTER <-> ALHURR <-> GOR <-> FPIK <-> FKH',
+        image: 2
+      },
+      {
+        name: 'Koridor 3',
+        detail: 'GWW <-> FEM <-> LSI <-> TECHNO <-> ALHURR <-> GOR <-> FPIK <-> FKH',
+        image: 3
+      },
+      {
+        name: 'Koridor 4',
+        detail: 'GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH',
+        image: 4
+      },
+    ];
+    this.maps = maps[this.params.get('maps')];
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }

@@ -44,7 +44,9 @@
     {
       "locator": "https://github.com/apache/cordova-plugin-splashscreen.git",
       "id": "cordova-plugin-splashscreen"
-    }
+    },
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-file"
   ],
   "cordovaPlatforms": [
     "ios",
