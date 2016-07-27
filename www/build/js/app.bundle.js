@@ -79,6 +79,7 @@ var AboutPage = (function () {
         this.user = user;
         this.http = http;
         this.storage = new ionic_angular_1.Storage(ionic_angular_1.LocalStorage);
+        this.versi = this.user.getVersi();
     }
     AboutPage.prototype.onPageWillEnter = function () {
         var _this = this;
@@ -133,17 +134,11 @@ var AboutPage = (function () {
         });
         loading.onDismiss(function () {
             if (_this.koneksi) {
-                _this.creds = JSON.stringify({ pesan: _this.pesan, nim: _this.nim });
-                _this.http.post("http://greentransport.ipb.ac.id/api/pesan", _this.creds)
-                    .subscribe(function (data) {
-                    _this.response = data._body;
-                });
                 _this.alertBerhasil();
                 _this.pesan = "";
             }
             else {
                 _this.alertGagal();
-                _this.koneksi = 20;
             }
         });
         this.nav.present(loading);
@@ -151,12 +146,65 @@ var AboutPage = (function () {
     AboutPage.prototype.kirim = function () {
         var _this = this;
         this.koneksi = "";
-        this.http.get("http://greentransport.ipb.ac.id/api/test.php")
+        this.http.get("http://greentransport.ipb.ac.id/api/test")
             .subscribe(function (data) {
             _this.koneksi = data._body;
             _this.koneksi = 1;
         });
+        this.creds = JSON.stringify({ pesan: this.pesan, nim: this.nim });
+        this.http.post("http://greentransport.ipb.ac.id/api/pesan", this.creds)
+            .subscribe(function (data) {
+            _this.response = data._body;
+        });
         this.loading();
+    };
+    AboutPage.prototype.cekUpdate = function () {
+        var _this = this;
+        var loading = ionic_angular_1.Loading.create({
+            content: "Please wait...",
+            duration: 3000
+        });
+        loading.onDismiss(function () {
+            if (_this.versi != _this.response) {
+                _this.updateBaru();
+                _this.pesan = "";
+            }
+            else {
+                _this.updateGagal();
+            }
+        });
+        this.nav.present(loading);
+    };
+    AboutPage.prototype.update = function () {
+        var _this = this;
+        this.koneksi = "";
+        this.http.get("http://greentransport.ipb.ac.id/api/test")
+            .subscribe(function (data) {
+            _this.koneksi = data._body;
+            _this.koneksi = 1;
+        });
+        this.http.get("http://greentransport.ipb.ac.id/api/update")
+            .map(function (res) { return res.json(); })
+            .subscribe(function (data) {
+            _this.response = data[0]['versi'];
+        });
+        this.cekUpdate();
+    };
+    AboutPage.prototype.updateBaru = function () {
+        var alert = ionic_angular_1.Alert.create({
+            title: '<div primary>New Updates</div>',
+            subTitle: "There's a new version. <a primary href=\"https://play.google.com/store/apps/details?id=com.ipb.green.campus&hl=en\"> Click Here</a> to update.",
+            buttons: ['OK']
+        });
+        this.nav.present(alert);
+    };
+    AboutPage.prototype.updateGagal = function () {
+        var alert = ionic_angular_1.Alert.create({
+            title: '<div primary>No Updates</div>',
+            subTitle: "There isn't any updates now.",
+            buttons: ['OK']
+        });
+        this.nav.present(alert);
     };
     AboutPage = __decorate([
         ionic_angular_1.Page({
@@ -596,6 +644,11 @@ var RankPage = (function () {
             .subscribe(function (data) {
             _this.pinjaman = data._body;
         });
+        this.http.get('http://greentransport.ipb.ac.id/api/recent')
+            .map(function (res) { return res.json(); })
+            .subscribe(function (data) {
+            _this.recents = data;
+        });
     };
     RankPage.prototype.login = function () {
         this.nav.push(login_1.LoginPage);
@@ -627,6 +680,11 @@ var RankPage = (function () {
         this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
             .subscribe(function (data) {
             _this.pinjaman = data._body;
+        });
+        this.http.get('http://greentransport.ipb.ac.id/api/recent')
+            .map(function (res) { return res.json(); })
+            .subscribe(function (data) {
+            _this.recents = data;
         });
         setTimeout(function () {
             console.log('Async operation has ended');
@@ -770,6 +828,7 @@ var UserData = (function () {
         this.storage = new ionic_angular_1.Storage(ionic_angular_1.LocalStorage);
         this.nim = "";
         this.status = 0;
+        this.versi = '1.0.2';
     }
     UserData.prototype.setCode = function (code) {
         this.code = code;
@@ -838,6 +897,9 @@ var UserData = (function () {
         return this.storage.get(this.HAS_LOGGED_IN).then(function (value) {
             return value;
         });
+    };
+    UserData.prototype.getVersi = function () {
+        return this.versi;
     };
     UserData = __decorate([
         core_1.Injectable(), 

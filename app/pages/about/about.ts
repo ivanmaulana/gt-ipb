@@ -16,6 +16,7 @@ export class AboutPage {
   nim: any;
   response: any;
   koneksi: any;
+  versi: any;
 
   onPageWillEnter(){
     this.storage.get('hasLoggedIn').then((status) => {
@@ -29,6 +30,8 @@ export class AboutPage {
 
   constructor(private nav: NavController, private user: UserData, private http: Http) {
     this.storage = new Storage(LocalStorage);
+
+    this.versi = this.user.getVersi();
   }
 
   login(){
@@ -79,17 +82,11 @@ export class AboutPage {
 
     loading.onDismiss(() => {
       if (this.koneksi){
-        this.creds = JSON.stringify({pesan: this.pesan, nim: this.nim});
-        this.http.post("http://greentransport.ipb.ac.id/api/pesan", this.creds)
-            .subscribe(data => {
-                    this.response = data._body;
-        });
         this.alertBerhasil();
         this.pesan = "";
       }
       else {
         this.alertGagal();
-        this.koneksi = 20;
       }
 
     });
@@ -99,12 +96,73 @@ export class AboutPage {
 
   kirim(){
     this.koneksi = "";
-    this.http.get("http://greentransport.ipb.ac.id/api/test.php")
+    this.http.get("http://greentransport.ipb.ac.id/api/test")
         .subscribe(data => {
                 this.koneksi = data._body;
                 this.koneksi = 1;
         })
 
+    this.creds = JSON.stringify({pesan: this.pesan, nim: this.nim});
+    this.http.post("http://greentransport.ipb.ac.id/api/pesan", this.creds)
+        .subscribe(data => {
+                this.response = data._body;
+    });
+
     this.loading();
+  }
+
+  cekUpdate(){
+    let loading = Loading.create({
+      content: "Please wait...",
+      duration: 3000
+    });
+
+    loading.onDismiss(() => {
+      if (this.versi != this.response){
+        this.updateBaru();
+        this.pesan = "";
+      }
+      else {
+        this.updateGagal();
+      }
+
+    });
+
+    this.nav.present(loading);
+  }
+
+  update(){
+    this.koneksi = "";
+    this.http.get("http://greentransport.ipb.ac.id/api/test")
+        .subscribe(data => {
+                this.koneksi = data._body;
+                this.koneksi = 1;
+        })
+
+    this.http.get("http://greentransport.ipb.ac.id/api/update")
+        .map(res => res.json())
+          .subscribe(data => {
+                this.response = data[0]['versi'];
+          })
+
+    this.cekUpdate();
+  }
+
+  updateBaru() {
+    let alert = Alert.create({
+      title: '<div primary>New Updates</div>',
+      subTitle: `There's a new version. <a primary href="https://play.google.com/store/apps/details?id=com.ipb.green.campus&hl=en"> Click Here</a> to update.`,
+      buttons: ['OK']
+    });
+    this.nav.present(alert);
+  }
+
+  updateGagal() {
+    let alert = Alert.create({
+      title: '<div primary>No Updates</div>',
+      subTitle: `There isn't any updates now.`,
+      buttons: ['OK']
+    });
+    this.nav.present(alert);
   }
 }

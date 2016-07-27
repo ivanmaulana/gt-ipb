@@ -18,6 +18,7 @@ export class RankPage {
   contoh: any;
   ranks: string[] = ['gold', 'primary', 'instagram', 'twitter', 'silver', 'bronze'];
   pinjaman: any;
+  recents: any;
 
   onPageWillEnter(){
     this.storage.get('hasLoggedIn').then((status) => {
@@ -33,6 +34,12 @@ export class RankPage {
     this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
         .subscribe(data => {
           this.pinjaman = data._body;
+    });
+
+    this.http.get('http://greentransport.ipb.ac.id/api/recent')
+      .map(res => res.json())
+        .subscribe(data => {
+          this.recents= data;
     });
   }
 
@@ -72,6 +79,12 @@ export class RankPage {
       this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
           .subscribe(data => {
             this.pinjaman = data._body;
+      });
+
+      this.http.get('http://greentransport.ipb.ac.id/api/recent')
+        .map(res => res.json())
+          .subscribe(data => {
+            this.recents= data;
       });
 
       setTimeout(() => {

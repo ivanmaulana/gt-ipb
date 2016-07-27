@@ -61,7 +61,7 @@
     </ion-card>
   </div>
 
-<!--
+
   <br />
   <div padding-left>
     <p primary>
@@ -71,61 +71,17 @@
 
   <ion-card>
     <ion-list>
-      <ion-item>
+      <ion-item  *ngFor="#recent of recents">
         <span grey>
-          Ivan Maulana Putra
+          {{recent.mahasiswaNama}}
         </span>
         <div item-right instagram>
           <p>
-            <ion-icon name="time" instagram></ion-icon> 20m
-          </p>
-        </div>
-      </ion-item>
-
-      <ion-item>
-        <span grey>
-          Ivan Maulana Putra
-        </span>
-        <div item-right instagram>
-          <p>
-            <ion-icon name="time" instagram></ion-icon> 20m
-          </p>
-        </div>
-      </ion-item>
-
-      <ion-item>
-        <span grey>
-          Ivan Maulana Putra
-        </span>
-        <div item-right instagram>
-          <p>
-            <ion-icon name="time" instagram></ion-icon> 20m
-          </p>
-        </div>
-      </ion-item>
-
-      <ion-item>
-        <span grey>
-          Ivan Maulana Putra
-        </span>
-        <div item-right instagram>
-          <p>
-            <ion-icon name="time" instagram></ion-icon> 20m
-          </p>
-        </div>
-      </ion-item>
-
-      <ion-item>
-        <span grey>
-          Ivan Maulana Putra
-        </span>
-        <div item-right instagram>
-          <p>
-            <ion-icon name="time" instagram></ion-icon> 20m
+            <ion-icon name="time" instagram></ion-icon> {{recent.time}}
           </p>
         </div>
       </ion-item>
     </ion-list>
-  </ion-card> -->
+  </ion-card>
 
 </ion-content>

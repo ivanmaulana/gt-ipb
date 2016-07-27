@@ -26,7 +26,6 @@ export class HomePage {
 
   onPageWillEnter(){
     this.do();
-
     this.code = true;
   }
 

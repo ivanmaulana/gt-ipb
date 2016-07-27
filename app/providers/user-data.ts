@@ -10,11 +10,13 @@ export class UserData {
   nim: any;
   status: number;
   code: boolean;
+  versi: any;
 
   constructor(private events: Events) {
     this.storage = new Storage(LocalStorage);
     this.nim = "";
     this.status = 0;
+    this.versi = '1.0.2';
   }
 
   setCode(code){
@@ -99,5 +101,9 @@ export class UserData {
     return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
       return value;
     });
+  }
+
+  getVersi(){
+    return this.versi;
   }
 }
