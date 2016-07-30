@@ -20,6 +20,7 @@ var ConferenceApp = (function () {
         this.events = events;
         this.userData = userData;
         this.menu = menu;
+        this.rootPage = tabs_1.TabsPage;
         // List of pages that can be navigated to from the left menu
         // the left menu only works after login
         // the login page disables the left menu
@@ -35,7 +36,6 @@ var ConferenceApp = (function () {
         this.loggedOutPages = [
             { title: 'Login', component: login_1.LoginPage, icon: 'log-in' }
         ];
-        this.rootPage = tabs_1.TabsPage;
         // Call any initial plugins when ready
         platform.ready().then(function () {
             ionic_native_1.StatusBar.styleDefault();
@@ -403,6 +403,10 @@ var InfoPage = (function () {
         var modal = ionic_angular_1.Modal.create(ModalsContentPage, maps);
         this.nav.present(modal);
     };
+    InfoPage.prototype.openMaps = function () {
+        var modal2 = ionic_angular_1.Modal.create(MapsContentPage);
+        this.nav.present(modal2);
+    };
     InfoPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/info/info.html'
@@ -412,6 +416,22 @@ var InfoPage = (function () {
     return InfoPage;
 }());
 exports.InfoPage = InfoPage;
+var MapsContentPage = (function () {
+    function MapsContentPage(platform, viewCtrl) {
+        this.platform = platform;
+        this.viewCtrl = viewCtrl;
+    }
+    MapsContentPage.prototype.dismiss = function () {
+        this.viewCtrl.dismiss();
+    };
+    MapsContentPage = __decorate([
+        core_1.Component({
+            templateUrl: './build/pages/info/maps-content.html'
+        }), 
+        __metadata('design:paramtypes', [ionic_angular_1.Platform, ionic_angular_1.ViewController])
+    ], MapsContentPage);
+    return MapsContentPage;
+}());
 var ModalsContentPage = (function () {
     function ModalsContentPage(platform, params, viewCtrl) {
         this.platform = platform;
@@ -437,6 +457,11 @@ var ModalsContentPage = (function () {
                 name: 'Koridor 4',
                 detail: 'GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH',
                 image: 4
+            },
+            {
+                name: 'Koridor 5',
+                detail: 'GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH',
+                image: 5
             },
         ];
         this.maps = maps[this.params.get('maps')];
@@ -585,6 +610,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var core_1 = require('@angular/core');
 var ionic_angular_1 = require('ionic-angular');
 var user_data_1 = require('../../providers/user-data');
 var http_1 = require('@angular/http');
@@ -650,6 +676,10 @@ var RankPage = (function () {
             refresher.complete();
         }, 2000);
     };
+    RankPage.prototype.openModal = function () {
+        var modal = ionic_angular_1.Modal.create(ModalsContentPage);
+        this.nav.present(modal);
+    };
     RankPage = __decorate([
         ionic_angular_1.Page({
             templateUrl: 'build/pages/rank/rank.html',
@@ -659,8 +689,45 @@ var RankPage = (function () {
     return RankPage;
 }());
 exports.RankPage = RankPage;
+var ModalsContentPage = (function () {
+    function ModalsContentPage(platform, viewCtrl, http) {
+        this.platform = platform;
+        this.viewCtrl = viewCtrl;
+        this.http = http;
+        this.refresh();
+    }
+    ModalsContentPage.prototype.onPageWillEnter = function () {
+        this.refresh();
+    };
+    ModalsContentPage.prototype.refresh = function () {
+        var _this = this;
+        this.http.get('http://greentransport.ipb.ac.id/api/belumPengembalian')
+            .map(function (res) { return res.json(); })
+            .subscribe(function (data) {
+            _this.response = data;
+        });
+    };
+    ModalsContentPage.prototype.doRefresh1 = function (refresher) {
+        this.refresh();
+        setTimeout(function () {
+            console.log('Async operation has ended');
+            refresher.complete();
+        }, 2000);
+    };
+    ModalsContentPage.prototype.dismiss = function () {
+        this.viewCtrl.dismiss();
+    };
+    ModalsContentPage = __decorate([
+        core_1.Component({
+            templateUrl: './build/pages/rank/modal-content.html'
+        }), 
+        __metadata('design:paramtypes', [ionic_angular_1.Platform, ionic_angular_1.ViewController, http_1.Http])
+    ], ModalsContentPage);
+    return ModalsContentPage;
+}());
+exports.ModalsContentPage = ModalsContentPage;
 
-},{"../../providers/user-data":9,"../login/login":5,"../tabs/tabs":7,"../tutorial/tutorial":8,"@angular/http":218,"ionic-angular":391}],7:[function(require,module,exports){
+},{"../../providers/user-data":9,"../login/login":5,"../tabs/tabs":7,"../tutorial/tutorial":8,"@angular/core":142,"@angular/http":218,"ionic-angular":391}],7:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

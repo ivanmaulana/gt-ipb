@@ -1,21 +1,30 @@
-<ion-navbar *navbar>
-  <ion-title>About</ion-title>
+<ion-navbar *navbar class="hide-border">
+  <ion-title>Home</ion-title>
   <button menuToggle end (click)="tutorial()" showWhen="ios">
     <ion-icon name="bulb" primary></ion-icon>
   </button>
-  <button menuToggle end (click)="tutorial()" hideWhen="ios">
+  <button menuToggle end (click)="tutorial()" showWhen="windows">
+    <ion-icon name="bulb" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="tutorial()" showWhen="android">
     <ion-icon name="bulb" light></ion-icon>
   </button>
   <button menuToggle end (click)="login()" *ngIf="!status" showWhen="ios">
     <ion-icon name="log-in" primary></ion-icon>
   </button>
-  <button menuToggle end (click)="login()" *ngIf="!status" hideWhen="ios">
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="windows">
+    <ion-icon name="log-in" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="android">
     <ion-icon name="log-in" light></ion-icon>
   </button>
-  <button menuToggle end (click)="logout()" *ngIf="status" hideWhen="ios">
+  <button menuToggle end (click)="logout()" *ngIf="status" showWhen="android">
     <ion-icon name="log-out" light></ion-icon>
   </button>
   <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="ios">
+    <ion-icon name="log-out" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="windows">
     <ion-icon name="log-out" primary></ion-icon>
   </button>
 </ion-navbar>

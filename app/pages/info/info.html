@@ -1,21 +1,30 @@
-<ion-navbar *navbar>
-  <ion-title>Info</ion-title>
+<ion-navbar *navbar class="hide-border">
+  <ion-title>Home</ion-title>
   <button menuToggle end (click)="tutorial()" showWhen="ios">
     <ion-icon name="bulb" primary></ion-icon>
   </button>
-  <button menuToggle end (click)="tutorial()" hideWhen="ios">
+  <button menuToggle end (click)="tutorial()" showWhen="windows">
+    <ion-icon name="bulb" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="tutorial()" showWhen="android">
     <ion-icon name="bulb" light></ion-icon>
   </button>
   <button menuToggle end (click)="login()" *ngIf="!status" showWhen="ios">
     <ion-icon name="log-in" primary></ion-icon>
   </button>
-  <button menuToggle end (click)="login()" *ngIf="!status" hideWhen="ios">
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="windows">
+    <ion-icon name="log-in" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="android">
     <ion-icon name="log-in" light></ion-icon>
   </button>
-  <button menuToggle end (click)="logout()" *ngIf="status" hideWhen="ios">
+  <button menuToggle end (click)="logout()" *ngIf="status" showWhen="android">
     <ion-icon name="log-out" light></ion-icon>
   </button>
   <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="ios">
+    <ion-icon name="log-out" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="windows">
     <ion-icon name="log-out" primary></ion-icon>
   </button>
 </ion-navbar>
@@ -105,6 +114,40 @@
         </ion-card-content>
       </ion-card>
     </ion-slide>
+    <ion-slide>
+      <ion-card>
+        <img (click)="openModal({maps: 4})" src="img/rute/koridor-5.jpg" width="100%"/>
+        <ion-card-content>
+          <ion-card-title>
+            <h2 primary><b>Koridor 5</b></h2>
+            </ion-card-title>
+          <p>
+            GERBANG BELAKANG - ASTRA - MENWA - ASRAMA INTER - AL HURR - PERUMDOS
+          </p><hr /><br />
+          <h2 primary><b>Jadwal Koridor</b></h2>
+          <p>
+            Koridor ini hanya dilayani oleh <span primary><b>Mobil Listrik</b></span>
+          </p>
+          <p>
+            Tidak beroperasi pada pukul : <span danger><b>10.00 - 14.00</b></span>
+          </p>
+          <br /><br />
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
   </ion-slides>
   </div>
+
+  <ion-card>
+    <br />
+    <div text-center>
+      <button primary outline text-center (click)="openMaps()">
+        Lihat Peta Semua Koridor
+      </button>
+      <p text-center>
+        <span grey>*Butuh koneksi internet.</span>
+      </p>
+    </div>
+    <br />
+  </ion-card>
 </ion-content>

@@ -50,7 +50,29 @@ export class InfoPage {
     let modal = Modal.create(ModalsContentPage, maps);
     this.nav.present(modal);
   }
+
+  openMaps() {
+    let modal2 = Modal.create(MapsContentPage);
+    this.nav.present(modal2);
+  }
 }
+
+@Component({
+  templateUrl : './build/pages/info/maps-content.html'
+})
+class MapsContentPage{
+  constructor(private platform: Platform, private viewCtrl: ViewController) {
+    
+  }
+
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
+
+}
+
+
 
 @Component({
   templateUrl: './build/pages/info/modal-content.html'
@@ -83,6 +105,11 @@ class ModalsContentPage {
         name: 'Koridor 4',
         detail: 'GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH',
         image: 4
+      },
+      {
+        name: 'Koridor 5',
+        detail: 'GWW <-> KKI/PASCA <-> REKTORAT <-> PARKIR GTV <-> LAB <-> FKH',
+        image: 5
       },
     ];
     this.maps = maps[this.params.get('maps')];

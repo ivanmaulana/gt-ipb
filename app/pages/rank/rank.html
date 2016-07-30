@@ -1,21 +1,30 @@
 <ion-navbar *navbar class="hide-border">
-  <ion-title>Rank</ion-title>
+  <ion-title>Home</ion-title>
   <button menuToggle end (click)="tutorial()" showWhen="ios">
     <ion-icon name="bulb" primary></ion-icon>
   </button>
-  <button menuToggle end (click)="tutorial()" hideWhen="ios">
+  <button menuToggle end (click)="tutorial()" showWhen="windows">
+    <ion-icon name="bulb" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="tutorial()" showWhen="android">
     <ion-icon name="bulb" light></ion-icon>
   </button>
   <button menuToggle end (click)="login()" *ngIf="!status" showWhen="ios">
     <ion-icon name="log-in" primary></ion-icon>
   </button>
-  <button menuToggle end (click)="login()" *ngIf="!status" hideWhen="ios">
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="windows">
+    <ion-icon name="log-in" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="login()" *ngIf="!status" showWhen="android">
     <ion-icon name="log-in" light></ion-icon>
   </button>
-  <button menuToggle end (click)="logout()" *ngIf="status" hideWhen="ios">
+  <button menuToggle end (click)="logout()" *ngIf="status" showWhen="android">
     <ion-icon name="log-out" light></ion-icon>
   </button>
   <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="ios">
+    <ion-icon name="log-out" primary></ion-icon>
+  </button>
+  <button menuToggle end (click)="logoutIos()" *ngIf="status" showWhen="windows">
     <ion-icon name="log-out" primary></ion-icon>
   </button>
 </ion-navbar>
@@ -39,8 +48,12 @@
   <br />
   <div padding-left>
     <p primary>
-      <b>Ranking Peminjam Sepeda</b>
+      <b>Peminjam Sepeda Terbanyak</b>
     </p>
+  </div>
+
+  <div *ngIf="!rankings" text-center>
+      <ion-spinner></ion-spinner>
   </div>
 
   <div *ngFor="#ranking of rankings;  let i = index">
@@ -68,6 +81,10 @@
     </p>
   </div>
 
+  <div *ngIf="!rankings" text-center>
+      <ion-spinner></ion-spinner>
+  </div>
+
   <ion-card>
     <ion-list>
       <ion-item  *ngFor="#recent of recents">
@@ -86,12 +103,12 @@
   <ion-card>
     <div class="dark text-center" padding>
       <p>
-        <b primary>Hai</b>. Kamu bisa membantu <span primary>mengingatkan</span> teman kamu yang bisa mengembalikan sepeda lebih dari 1 hari.
+        <b primary>Hai</b>. Kamu bisa membantu <span primary>mengingatkan</span> teman kamu yang belum mengembalikan sepeda lebih dari 1 hari.
       </p>
     </div>
     <div text-center>
-      <button danger outline text-center (click)="update()">
-        Check For Updates
+      <button danger outline text-center (click)="openModal()">
+        Lihat Yang Belum Mengembalikan
       </button>
     </div>
     <br />

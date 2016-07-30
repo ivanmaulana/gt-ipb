@@ -1,5 +1,5 @@
-import {ViewChild} from '@angular/core';
-import {IonicApp, Page, Modal, Alert, NavController, ItemSliding, List, Storage, LocalStorage} from 'ionic-angular';
+import {Component} from '@angular/core';
+import {IonicApp, Page, Modal, Alert, NavController, ItemSliding, List, Storage, LocalStorage, ViewController, Platform,} from 'ionic-angular';
 import {UserData} from '../../providers/user-data';
 import {Http} from '@angular/http';
 import {LoginPage} from '../login/login';
@@ -82,4 +82,44 @@ export class RankPage {
       }, 2000);
     }
 
+    openModal(){
+      let modal = Modal.create(ModalsContentPage);
+      this.nav.present(modal);
+    }
+}
+
+@Component({
+  templateUrl: './build/pages/rank/modal-content.html'
+})
+export class ModalsContentPage{
+  response;
+
+  onPageWillEnter(){
+    this.refresh();
+  }
+
+  constructor(private platform: Platform, private viewCtrl: ViewController, private http: Http){
+    this.refresh();
+  }
+
+  refresh(){
+    this.http.get('http://greentransport.ipb.ac.id/api/belumPengembalian')
+      .map(res => res.json())
+        .subscribe(data => {
+          this.response= data;
+    });
+  }
+
+  doRefresh1(refresher) {
+    this.refresh();
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      refresher.complete();
+    }, 2000);
+  }
+
+  dismiss() {
+    this.viewCtrl.dismiss();
+  }
 }
