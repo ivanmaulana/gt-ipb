@@ -3,9 +3,7 @@ import {NavController, Page, ActionSheet, Modal, Alert, Storage, LocalStorage, V
 import {LoginPage} from '../login/login';
 import {TabsPage} from '../tabs/tabs';
 import {TutorialPage} from '../tutorial/tutorial';
-import {JadwalPage} from '../jadwal/jadwal';
 import {UserData} from '../../providers/user-data';
-// import {InfoData} from './info-data';
 
 @Page({
   templateUrl: 'build/pages/info/info.html'
@@ -51,10 +49,6 @@ export class InfoPage {
   openModal(maps) {
     let modal = Modal.create(ModalsContentPage, maps);
     this.nav.present(modal);
-  }
-
-  jadwal(){
-    this.nav.push(JadwalPage);
   }
 }
 

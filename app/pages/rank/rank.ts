@@ -25,22 +25,7 @@ export class RankPage {
          this.status = status;
     });
 
-    this.http.get('http://greentransport.ipb.ac.id/api/rank')
-      .map(res => res.json())
-        .subscribe(data => {
-          this.rankings = data;
-    });
-
-    this.http.get('http://greentransport.ipb.ac.id/api/pinjaman')
-        .subscribe(data => {
-          this.pinjaman = data._body;
-    });
-
-    this.http.get('http://greentransport.ipb.ac.id/api/recent')
-      .map(res => res.json())
-        .subscribe(data => {
-          this.recents= data;
-    });
+    this.refresh();
   }
 
   constructor(private nav: NavController, private user: UserData, private http: Http) {
@@ -69,7 +54,7 @@ export class RankPage {
       this.nav.push(TutorialPage);
     }
 
-    doRefresh(refresher) {
+    refresh(){
       this.http.get('http://greentransport.ipb.ac.id/api/rank')
         .map(res => res.json())
           .subscribe(data => {
@@ -86,6 +71,10 @@ export class RankPage {
           .subscribe(data => {
             this.recents= data;
       });
+    }
+
+    doRefresh(refresher) {
+      this.refresh();
 
       setTimeout(() => {
         console.log('Async operation has ended');

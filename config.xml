@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <widget id="com.ipb.green.campus" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-  <name>IPB Green Campus</name>
+  <name>GT IPB</name>
   <description>
         IPB Green Campus
   </description>
@@ -27,6 +27,9 @@
     <splash src="resources/android/splash/drawable-port-ldpi-screen.png" density="port-ldpi"/>
     <splash src="resources/android/splash/drawable-port-mdpi-screen.png" density="port-mdpi"/>
     <splash src="resources/android/splash/drawable-port-hdpi-screen.png" density="port-hdpi"/>
+    <splash src="resources/android/splash/drawable-port-xhdpi-screen.png" density="port-xhdpi"/>
+    <splash src="resources/android/splash/drawable-port-xxhdpi-screen.png" density="port-xxhdpi"/>
+    <splash src="resources/android/splash/drawable-port-xxxhdpi-screen.png" density="port-xxxhdpi"/>
   </platform>
   <platform name="ios">
     <allow-intent href="itms:*"/>
@@ -62,11 +65,11 @@
   <preference name="BackupWebStorage" value="none"/>
   <preference name="SplashScreen" value="screen"/>
   <preference name="orientation" value="portrait"/>
-  <preference name="SplashScreenDelay" value="10000"/>
+  <preference name="SplashScreenDelay" value="4000"/>
   <preference name="FadeSplashScreen" value="true"/>
-  <preference name="FadeSplashScreenDuration" value="750"/>
+  <preference name="FadeSplashScreenDuration" value="400"/>
   <preference name="ShowSplashScreenSpinner" value="false"/>
-  <preference name="AndroidPersistentFileLocation" value="Compatibility" />
+  <preference name="AndroidPersistentFileLocation" value="Compatibility"/>
   <feature name="StatusBar">
     <param name="ios-package" onload="true" value="CDVStatusBar"/>
   </feature>
