@@ -14,5 +14,11 @@
 </ion-header>
 
 <ion-content>
-  <iframe src="https://www.google.com/maps/d/embed?mid=1TmnvP8TsfoPe4krcGHqccjv32iY&z=15" height="100%" width="100%"></iframe>
+  <div *ngIf="!status" text-center>
+    <br /><br /><ion-spinner></ion-spinner><br />
+    <p>
+      <span grey>Menghubungkan..</span>
+    </p>
+  </div>
+  <iframe *ngIf="status" src="https://www.google.com/maps/d/embed?mid=1TmnvP8TsfoPe4krcGHqccjv32iY&z=15" height="100%" width="100%"></iframe>
 </ion-content>

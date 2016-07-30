@@ -367,6 +367,7 @@ var login_1 = require('../login/login');
 var tabs_1 = require('../tabs/tabs');
 var tutorial_1 = require('../tutorial/tutorial');
 var user_data_1 = require('../../providers/user-data');
+var http_1 = require('@angular/http');
 var InfoPage = (function () {
     function InfoPage(nav, user) {
         this.nav = nav;
@@ -417,9 +418,16 @@ var InfoPage = (function () {
 }());
 exports.InfoPage = InfoPage;
 var MapsContentPage = (function () {
-    function MapsContentPage(platform, viewCtrl) {
+    function MapsContentPage(platform, viewCtrl, http) {
+        var _this = this;
         this.platform = platform;
         this.viewCtrl = viewCtrl;
+        this.http = http;
+        this.status = 0;
+        this.http.get("http://greentransport.ipb.ac.id/api/test")
+            .subscribe(function (data) {
+            _this.status = data._body;
+        });
     }
     MapsContentPage.prototype.dismiss = function () {
         this.viewCtrl.dismiss();
@@ -428,7 +436,7 @@ var MapsContentPage = (function () {
         core_1.Component({
             templateUrl: './build/pages/info/maps-content.html'
         }), 
-        __metadata('design:paramtypes', [ionic_angular_1.Platform, ionic_angular_1.ViewController])
+        __metadata('design:paramtypes', [ionic_angular_1.Platform, ionic_angular_1.ViewController, http_1.Http])
     ], MapsContentPage);
     return MapsContentPage;
 }());
@@ -478,7 +486,7 @@ var ModalsContentPage = (function () {
     return ModalsContentPage;
 }());
 
-},{"../../providers/user-data":9,"../login/login":5,"../tabs/tabs":7,"../tutorial/tutorial":8,"@angular/core":142,"ionic-angular":391}],5:[function(require,module,exports){
+},{"../../providers/user-data":9,"../login/login":5,"../tabs/tabs":7,"../tutorial/tutorial":8,"@angular/core":142,"@angular/http":218,"ionic-angular":391}],5:[function(require,module,exports){
 "use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;

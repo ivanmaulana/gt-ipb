@@ -26,6 +26,10 @@
     </p>
   </div>
 
+  <div *ngIf="!response" text-center>
+      <ion-spinner></ion-spinner>
+  </div>
+
   <div *ngFor="#res of response">
     <ion-card>
       <ion-item>

@@ -4,6 +4,7 @@ import {LoginPage} from '../login/login';
 import {TabsPage} from '../tabs/tabs';
 import {TutorialPage} from '../tutorial/tutorial';
 import {UserData} from '../../providers/user-data';
+import {Http} from '@angular/http';
 
 @Page({
   templateUrl: 'build/pages/info/info.html'
@@ -61,8 +62,13 @@ export class InfoPage {
   templateUrl : './build/pages/info/maps-content.html'
 })
 class MapsContentPage{
-  constructor(private platform: Platform, private viewCtrl: ViewController) {
-    
+  status: number = 0;
+
+  constructor(private platform: Platform, private viewCtrl: ViewController, private http: Http) {
+    this.http.get("http://greentransport.ipb.ac.id/api/test")
+        .subscribe(data => {
+                this.status = data._body;
+        })
   }
 
 
