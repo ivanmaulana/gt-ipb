@@ -11,12 +11,17 @@ export class UserData {
   status: number;
   code: boolean;
   versi: any;
+  private privat: string = "sepedaKampus";
 
   constructor(private events: Events) {
     this.storage = new Storage(LocalStorage);
     this.nim = "";
     this.status = 0;
     this.versi = '1.0.2';
+  }
+
+  getData(){
+    return this.privat;
   }
 
   setCode(code){

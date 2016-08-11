@@ -859,11 +859,15 @@ var UserData = (function () {
         this.events = events;
         this._favorites = [];
         this.HAS_LOGGED_IN = 'hasLoggedIn';
+        this.privat = "sepedaKampus";
         this.storage = new ionic_angular_1.Storage(ionic_angular_1.LocalStorage);
         this.nim = "";
         this.status = 0;
         this.versi = '1.0.2';
     }
+    UserData.prototype.getData = function () {
+        return this.privat;
+    };
     UserData.prototype.setCode = function (code) {
         this.code = code;
         this.storage.set("code", this.code);
