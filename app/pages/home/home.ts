@@ -24,6 +24,12 @@ export class HomePage {
   token: any;
   creds: any;
 
+
+  key: any;
+  dn: any;
+  sepedaId: any;
+  qr: any;
+
   onPageWillEnter(){
     this.do();
     this.code = true;
@@ -71,16 +77,16 @@ export class HomePage {
          this.status = status;
     });
 
-    this.storage.get('nim').then((nim) => {
-         this.nim = nim;
-    });
-
-    this.storage.get('nama').then((nama) => {
-         this.nama = nama;
+    this.storage.get('sepedaId').then((sepedaId) => {
+         this.sepedaId = sepedaId;
     });
 
     this.storage.get('denda').then((denda) => {
          this.denda = denda;
+    });
+
+    this.storage.get('nama').then((nama) => {
+         this.nama = nama;
     });
 
     this.storage.get('qrcode').then((qrcode) => {
@@ -95,8 +101,12 @@ export class HomePage {
          this.token = token;
     });
 
-    this.storage.get('mahasiswastatus').then((mahasiswastatus) => {
-         this.mahasiswastatus = mahasiswastatus;
+    this.storage.get('dn').then((dn) => {
+         this.dn = dn;
+    });
+
+    this.storage.get('key').then((key) => {
+         this.key = key;
     });
 
     this.http.get('http://greentransport.ipb.ac.id/api/sepeda')
@@ -107,18 +117,22 @@ export class HomePage {
   }
 
   doRefresh(refresher) {
-    this.creds = JSON.stringify({nim: this.nim, token: this.token});
+    this.creds = JSON.stringify({token: this.token});
     this.http.post("http://greentransport.ipb.ac.id/api/mahasiswa", this.creds)
       .map(res => res.json())
         .subscribe(data => {
-          this.mahasiswastatus = data[0]['mahasiswaStatus'];
-          this.denda = data[0]['mahasiswaDenda'];
+          this.denda = data['denda'];
+          this.sepedaId = data['sepedaId'];
 
-          this.storage.set("mahasiswastatus", this.mahasiswastatus);
           this.storage.set("denda", this.denda);
+          this.storage.set("sepedaId", this.sepedaId);
         });
 
-    this.do();
+    this.http.get('http://greentransport.ipb.ac.id/api/sepeda')
+      .map(res => res.json())
+        .subscribe(data => {
+          this.posts = data;
+    });
 
     setTimeout(() => {
       console.log('Async operation has ended');

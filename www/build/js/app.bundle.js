@@ -276,14 +276,14 @@ var HomePage = (function () {
         this.storage.get('hasLoggedIn').then(function (status) {
             _this.status = status;
         });
-        this.storage.get('nim').then(function (nim) {
-            _this.nim = nim;
-        });
-        this.storage.get('nama').then(function (nama) {
-            _this.nama = nama;
+        this.storage.get('sepedaId').then(function (sepedaId) {
+            _this.sepedaId = sepedaId;
         });
         this.storage.get('denda').then(function (denda) {
             _this.denda = denda;
+        });
+        this.storage.get('nama').then(function (nama) {
+            _this.nama = nama;
         });
         this.storage.get('qrcode').then(function (qrcode) {
             _this.qrcode = qrcode;
@@ -294,8 +294,11 @@ var HomePage = (function () {
         this.storage.get('token').then(function (token) {
             _this.token = token;
         });
-        this.storage.get('mahasiswastatus').then(function (mahasiswastatus) {
-            _this.mahasiswastatus = mahasiswastatus;
+        this.storage.get('dn').then(function (dn) {
+            _this.dn = dn;
+        });
+        this.storage.get('key').then(function (key) {
+            _this.key = key;
         });
         this.http.get('http://greentransport.ipb.ac.id/api/sepeda')
             .map(function (res) { return res.json(); })
@@ -305,16 +308,20 @@ var HomePage = (function () {
     };
     HomePage.prototype.doRefresh = function (refresher) {
         var _this = this;
-        this.creds = JSON.stringify({ nim: this.nim, token: this.token });
+        this.creds = JSON.stringify({ token: this.token });
         this.http.post("http://greentransport.ipb.ac.id/api/mahasiswa", this.creds)
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
-            _this.mahasiswastatus = data[0]['mahasiswaStatus'];
-            _this.denda = data[0]['mahasiswaDenda'];
-            _this.storage.set("mahasiswastatus", _this.mahasiswastatus);
+            _this.denda = data['denda'];
+            _this.sepedaId = data['sepedaId'];
             _this.storage.set("denda", _this.denda);
+            _this.storage.set("sepedaId", _this.sepedaId);
         });
-        this.do();
+        this.http.get('http://greentransport.ipb.ac.id/api/sepeda')
+            .map(function (res) { return res.json(); })
+            .subscribe(function (data) {
+            _this.posts = data;
+        });
         setTimeout(function () {
             console.log('Async operation has ended');
             refresher.complete();
@@ -509,6 +516,7 @@ var LoginPage = (function () {
         this.submitted = false;
         this.storage = new ionic_angular_1.Storage(ionic_angular_1.LocalStorage);
         this.status = "";
+        this.data = this.userData.getData();
     }
     LoginPage.prototype.alertGagal = function () {
         var alert = ionic_angular_1.Alert.create({
@@ -517,6 +525,7 @@ var LoginPage = (function () {
             buttons: ['OK']
         });
         this.nav.present(alert);
+        this.storage.clear();
     };
     LoginPage.prototype.salah = function () {
         var alert = ionic_angular_1.Alert.create({
@@ -525,6 +534,7 @@ var LoginPage = (function () {
             buttons: ['OK']
         });
         this.nav.present(alert);
+        this.storage.clear();
     };
     LoginPage.prototype.loadingGagal = function () {
         var _this = this;
@@ -543,16 +553,13 @@ var LoginPage = (function () {
             content: "Please wait...",
             duration: 4000
         });
-        this.storage.get('nama').then(function (nama) {
-            _this.nama = nama;
-        });
         loading.onDismiss(function () {
             if (!_this.status) {
                 _this.alertGagal();
             }
-            else if (_this.nama && _this.qrcode && _this.barcode) {
+            else if (_this.nama && _this.qrcode && _this.token && _this.key) {
                 _this.submitted = true;
-                _this.userData.setNim(_this.nim);
+                _this.userData.setKey(_this.key);
                 _this.userData.setStatus(1);
                 _this.nav.pop();
             }
@@ -570,24 +577,26 @@ var LoginPage = (function () {
             .subscribe(function (data) {
             _this.status = data._body;
         });
-        this.creds = JSON.stringify({ username: this.login.username, password: this.login.password });
-        this.http.post("http://greentransport.ipb.ac.id/api/login/mahasiswa", this.creds)
+        this.creds = JSON.stringify({ username: this.login.username, password: this.login.password, data: this.data });
+        this.http.post("http://greentransport.ipb.ac.id/api/loginMahasiswa2.php", this.creds)
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
-            _this.nim = data[0]['mahasiswaNim'];
-            _this.nama = data[0]['mahasiswaNama'];
-            _this.mahasiswastatus = data[0]['mahasiswaStatus'];
-            _this.denda = data[0]['mahasiswaDenda'];
-            _this.barcode = data[0]['encode'];
-            _this.qrcode = data[0]['barcode'];
-            _this.token = data[0]['mahasiswaToken'];
+            _this.key = data['key'];
+            _this.nama = data['nama'];
+            _this.denda = data['denda'];
+            _this.qrcode = data['qrcode'];
+            _this.barcode = data['barcode'];
+            _this.token = data['token'];
+            _this.sepedaId = data['sepedaId'];
+            _this.dn = data['dn'];
+            _this.storage.set("key", _this.key);
             _this.storage.set("nama", _this.nama);
-            _this.storage.set("nim", _this.nim);
-            _this.storage.set("mahasiswastatus", _this.mahasiswastatus);
-            _this.storage.set("denda", _this.denda);
             _this.storage.set("qrcode", _this.qrcode);
             _this.storage.set("barcode", _this.barcode);
+            _this.storage.set("denda", _this.denda);
             _this.storage.set("token", _this.token);
+            _this.storage.set("sepedaId", _this.sepedaId);
+            _this.storage.set("dn", _this.dn);
             _this.storage.set("status", true);
             _this.submitted = true;
             _this.userData.login(_this.login.username);
@@ -881,12 +890,12 @@ var UserData = (function () {
     UserData.prototype.getStatus = function () {
         return this.status;
     };
-    UserData.prototype.setNim = function (nim) {
-        this.nim = nim;
-        this.storage.set("nim", this.nim);
+    UserData.prototype.setKey = function (key) {
+        this.key = key;
+        this.storage.set("key", this.key);
     };
-    UserData.prototype.getNim = function () {
-        return this.nim;
+    UserData.prototype.getKey = function () {
+        return this.Key;
     };
     UserData.prototype.hasFavorite = function (sessionName) {
         return (this._favorites.indexOf(sessionName) > -1);
@@ -921,6 +930,7 @@ var UserData = (function () {
         this.storage.remove("mahasiswastatus");
         this.storage.remove("denda");
         this.storage.remove("status");
+        this.storage.clear();
     };
     UserData.prototype.setUsername = function (username) {
         this.storage.set('username', username);

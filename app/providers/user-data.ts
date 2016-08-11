@@ -11,6 +11,7 @@ export class UserData {
   status: number;
   code: boolean;
   versi: any;
+  key: any;
   private privat: string = "sepedaKampus";
 
   constructor(private events: Events) {
@@ -41,13 +42,13 @@ export class UserData {
     return this.status;
   }
 
-  setNim(nim){
-    this.nim = nim;
-    this.storage.set("nim", this.nim);
+  setKey(key){
+    this.key = key;
+    this.storage.set("key", this.key);
   }
 
-  getNim(){
-    return this.nim;
+  getKey(){
+    return this.Key;
   }
 
   hasFavorite(sessionName) {
@@ -89,6 +90,7 @@ export class UserData {
     this.storage.remove("mahasiswastatus");
     this.storage.remove("denda");
     this.storage.remove("status");
+    this.storage.clear();
   }
 
   setUsername(username) {

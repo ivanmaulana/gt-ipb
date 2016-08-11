@@ -20,10 +20,18 @@ export class LoginPage {
   barcode: any;
   mahasiswastatus: any;
   token: any;
+  sepedaId: any;
+  code: any;
+  key: any;
+  dn: any;
+
+  data: any;
 
   constructor(private nav: NavController, private userData: UserData, private http: Http) {
     this.storage = new Storage(LocalStorage);
     this.status = "";
+
+    this.data = this.userData.getData();
   }
 
   alertGagal() {
@@ -33,6 +41,7 @@ export class LoginPage {
       buttons: ['OK']
     });
     this.nav.present(alert);
+    this.storage.clear();
   }
 
   salah() {
@@ -42,6 +51,7 @@ export class LoginPage {
       buttons: ['OK']
     });
     this.nav.present(alert);
+    this.storage.clear();
   }
 
   loadingGagal() {
@@ -63,17 +73,13 @@ export class LoginPage {
       duration: 4000
     });
 
-    this.storage.get('nama').then((nama) => {
-         this.nama = nama;
-    });
-
     loading.onDismiss(() => {
         if (!this.status){
           this.alertGagal();
         }
-        else if (this.nama && this.qrcode && this.barcode){
+        else if (this.nama && this.qrcode && this.token && this.key){
           this.submitted = true;
-          this.userData.setNim(this.nim);
+          this.userData.setKey(this.key);
           this.userData.setStatus(1);
           this.nav.pop();
         }
@@ -94,26 +100,28 @@ export class LoginPage {
                 this.status = data._body;
         })
 
-    this.creds = JSON.stringify({username: this.login.username, password: this.login.password});
+    this.creds = JSON.stringify({username: this.login.username, password: this.login.password, data: this.data});
 
-    this.http.post("http://greentransport.ipb.ac.id/api/login/mahasiswa", this.creds)
+    this.http.post("http://greentransport.ipb.ac.id/api/loginMahasiswa2.php", this.creds)
       .map(res => res.json())
         .subscribe(data => {
-          this.nim = data[0]['mahasiswaNim'];
-          this.nama = data[0]['mahasiswaNama'];
-          this.mahasiswastatus = data[0]['mahasiswaStatus'];
-          this.denda = data[0]['mahasiswaDenda'];
-          this.barcode = data[0]['encode'];
-          this.qrcode = data[0]['barcode'];
-          this.token = data[0]['mahasiswaToken'];
+          this.key = data['key'];
+          this.nama = data['nama'];
+          this.denda = data['denda'];
+          this.qrcode = data['qrcode'];
+          this.barcode = data['barcode'];
+          this.token = data['token'];
+          this.sepedaId = data['sepedaId'];
+          this.dn = data['dn'];
 
+          this.storage.set("key", this.key);
           this.storage.set("nama", this.nama);
-          this.storage.set("nim", this.nim);
-          this.storage.set("mahasiswastatus", this.mahasiswastatus);
-          this.storage.set("denda", this.denda);
           this.storage.set("qrcode", this.qrcode);
           this.storage.set("barcode", this.barcode);
+          this.storage.set("denda", this.denda);
           this.storage.set("token", this.token);
+          this.storage.set("sepedaId", this.sepedaId);
+          this.storage.set("dn", this.dn);
           this.storage.set("status", true);
           this.submitted = true;
           this.userData.login(this.login.username);

@@ -40,29 +40,43 @@
       <button primary (click)="change()">Code Kamu</button>
     </div>
     <div class="row">
-      <div align="center" *ngIf="!code">
-        <br /><img width="60%" src="data:image/png;base64,{{qrcode}}">
-      </div>
       <div align="center" *ngIf="code">
-        <img width="60%" src="data:image/png;base64,{{barcode}}">
+        <br /><img width="50%" src="data:image/png;base64,{{qrcode}}">
+      </div>
+      <div align="center" *ngIf="!code"><br />
+        <img width="60%" src="data:image/png;base64,{{barcode}}"><br /><br />
       </div>
     </div>
 
     <ion-card>
       <ion-item>
-        <h2>{{nim}}</h2>
+        <h2>{{key}}</h2>
         <p>{{nama}}</p>
         <button item-right danger>Denda = Rp. {{denda}}</button>
       </ion-item>
-      <ion-row align="center">
+      <ion-row align="center" *ngIf="sepedaId == ''">
         <ion-col width-100>
-          <ion-icon primary *ngIf="mahasiswastatus === '0'" name="md-checkmark-circle" style="font-size:42px"></ion-icon>
-          <ion-icon danger *ngIf="mahasiswastatus === '1'" name="close-circle" style="font-size:42px"></ion-icon>
+          <ion-icon primary name="md-checkmark-circle" style="font-size:42px"></ion-icon>
           <br>
-          <p *ngIf="mahasiswastatus === '1'">Sedang Pinjam</p>
-          <p *ngIf="mahasiswastatus === '0'">Tidak Sedang Pinjam</p>
+          <p >Tidak Sedang Pinjam</p>
         </ion-col>
       </ion-row>
+      <ion-row align="center" *ngIf="sepedaId != ''">
+        <ion-col width-20>
+        </ion-col>
+        <ion-col width-40>
+          <ion-icon danger name="close-circle" style="font-size:42px"></ion-icon>
+          <br>
+          <p >Sedang Pinjam</p>
+        </ion-col>
+        <ion-col width-40>
+          <ion-icon danger name="bicycle" style="font-size:42px"></ion-icon>
+          <br>
+          <p >0{{sepedaId}}</p>
+        </ion-col>
+        <ion-col width-20>
+        </ion-col>
+      </ion-row><br />
     </ion-card>
   </div>
 

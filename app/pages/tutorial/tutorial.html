@@ -1,8 +1,7 @@
 <ion-navbar *navbar>
   <ion-buttons end *ngIf="showSkip">
-    <button showWhen="android" (click)="startApp()" primary>Skip</button>
-    <button showWhen="windows" (click)="startApp()" primary>Skip</button>
-    <button showWhen="ios" (click)="startIos()" primary>Skip</button>
+    <button hideWhen="ios,windows" (click)="startApp()" primary>Skip</button>
+    <button showWhen="ios,windows" (click)="startIos()" primary>Skip</button>
   </ion-buttons>
 </ion-navbar>
 

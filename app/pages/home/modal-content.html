@@ -6,8 +6,8 @@
     <ion-buttons start>
       <button (click)="dismiss()">
         <span primary showWhen="ios">Cancel</span>
-        <ion-icon light name="md-close" showWhen="android"></ion-icon>
-        <ion-icon primary name="md-close" showWhen="windows"></ion-icon>
+        <ion-icon light name="md-close" hideWhen="ios,windows"></ion-icon>
+        <ion-icon primary name="md-close" showWhen="windows,ios"></ion-icon>
       </button>
     </ion-buttons>
   </ion-toolbar>
