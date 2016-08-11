@@ -86,8 +86,8 @@ var AboutPage = (function () {
         this.storage.get('hasLoggedIn').then(function (status) {
             _this.status = status;
         });
-        this.storage.get('nim').then(function (nim) {
-            _this.nim = nim;
+        this.storage.get('key').then(function (key) {
+            _this.key = key;
         });
     };
     AboutPage.prototype.login = function () {
@@ -151,7 +151,7 @@ var AboutPage = (function () {
             _this.koneksi = data._body;
             _this.koneksi = 1;
         });
-        this.creds = JSON.stringify({ pesan: this.pesan, nim: this.nim });
+        this.creds = JSON.stringify({ pesan: this.pesan, key: this.key });
         this.http.post("http://greentransport.ipb.ac.id/api/pesan", this.creds)
             .subscribe(function (data) {
             _this.response = data._body;
@@ -578,7 +578,7 @@ var LoginPage = (function () {
             _this.status = data._body;
         });
         this.creds = JSON.stringify({ username: this.login.username, password: this.login.password, data: this.data });
-        this.http.post("http://greentransport.ipb.ac.id/api/loginMahasiswa2.php", this.creds)
+        this.http.post("http://greentransport.ipb.ac.id/api/login/mahasiswa", this.creds)
             .map(function (res) { return res.json(); })
             .subscribe(function (data) {
             _this.key = data['key'];

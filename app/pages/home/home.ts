@@ -10,14 +10,12 @@ import {TutorialPage} from '../tutorial/tutorial';
   templateUrl: 'build/pages/home/home.html'
 })
 export class HomePage {
-  nim: any;
   posts: any;
   test: any;
   status: number;
   storage: any;
   nama: any;
   denda: any;
-  mahasiswastatus: any;
   code: boolean = true;
   qrcode: any;
   barcode: any;

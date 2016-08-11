@@ -13,7 +13,7 @@ export class AboutPage {
   status: any;
   pesan: any;
   creds: any;
-  nim: any;
+  key: any;
   response: any;
   koneksi: any;
   versi: any;
@@ -23,8 +23,8 @@ export class AboutPage {
          this.status = status;
     });
 
-    this.storage.get('nim').then((nim) => {
-         this.nim = nim;
+    this.storage.get('key').then((key) => {
+         this.key = key;
     });
   }
 
@@ -102,7 +102,7 @@ export class AboutPage {
                 this.koneksi = 1;
         })
 
-    this.creds = JSON.stringify({pesan: this.pesan, nim: this.nim});
+    this.creds = JSON.stringify({pesan: this.pesan, key: this.key});
     this.http.post("http://greentransport.ipb.ac.id/api/pesan", this.creds)
         .subscribe(data => {
                 this.response = data._body;

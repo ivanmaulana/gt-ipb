@@ -18,10 +18,8 @@ export class LoginPage {
   denda: any;
   qrcode: any;
   barcode: any;
-  mahasiswastatus: any;
   token: any;
   sepedaId: any;
-  code: any;
   key: any;
   dn: any;
 
@@ -102,7 +100,7 @@ export class LoginPage {
 
     this.creds = JSON.stringify({username: this.login.username, password: this.login.password, data: this.data});
 
-    this.http.post("http://greentransport.ipb.ac.id/api/loginMahasiswa2.php", this.creds)
+    this.http.post("http://greentransport.ipb.ac.id/api/login/mahasiswa", this.creds)
       .map(res => res.json())
         .subscribe(data => {
           this.key = data['key'];
